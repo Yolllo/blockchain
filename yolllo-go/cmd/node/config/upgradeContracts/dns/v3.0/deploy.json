@@ -1,0 +1,8 @@
+{
+  "owner": "yol1x9wak9qv3wzcmfamuql3xweeurktypmz6uteege7mpq6dwsf3xts0m9kkd",
+  "filename": "./config/genesisContracts/dns.wasm",
+  "vm-type": "0500",
+  "init-parameters": "00",
+  "type": "dns",
+  "version": "0.3.*"
+}

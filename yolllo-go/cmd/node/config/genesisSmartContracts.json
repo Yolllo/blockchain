@@ -1,0 +1,18 @@
+[
+  {
+    "owner": "yol19mfd998dpqcdm5m5z5gn7u3lw6jwnxk8w75gh4gzjxcxfvtxmm8q3gd0su",
+    "filename": "./config/genesisContracts/delegation.wasm",
+    "vm-type": "0500",
+    "init-parameters": "%validator_sc_address%@03E8@00@030D40@030D40",
+    "type": "delegation",
+    "version": "0.4.*"
+  },
+  {
+    "owner": "yol1x9wak9qv3wzcmfamuql3xweeurktypmz6uteege7mpq6dwsf3xts0m9kkd",
+    "filename": "./config/genesisContracts/dns.wasm",
+    "vm-type": "0500",
+    "init-parameters": "056bc75e2d63100000",
+    "type": "dns",
+    "version": "0.2.*"
+  }
+]

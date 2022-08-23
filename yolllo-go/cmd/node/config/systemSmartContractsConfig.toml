@@ -1,0 +1,40 @@
+[StakingSystemSCConfig]
+    GenesisNodePrice = "1000000000000000000000000" #2.5K eGLD
+    MinStakeValue = "100000000000000000000" #100 eGLD
+    MinUnstakeTokensValue = "10000000000000000000" #10eGLD
+    UnBondPeriod = 250
+    UnBondPeriodInEpochs = 1
+    MinStepValue = "100000000000000000000"
+    NumRoundsWithoutBleed = 100
+    MaximumPercentageToBleed = 0.5
+    BleedPercentagePerRound = 0.00001
+    MaxNumberOfNodesForStake = 36
+    UnJailValue = "100000000000000000000" #100
+    ActivateBLSPubKeyMessageVerification = false
+
+[ESDTSystemSCConfig]
+    BaseIssuingCost = "5000000000000000000" #5 eGLD
+    OwnerAddress = "yol1md4zs78ywysuvpw6azc7npp7arkuqc5tzpjgmdju62ffcr3yd52slh956t"
+
+[GovernanceSystemSCConfig]
+    FirstWhitelistedAddress = "yol19mfd998dpqcdm5m5z5gn7u3lw6jwnxk8w75gh4gzjxcxfvtxmm8q3gd0su" #should use a multisign contract instead of a wallet address
+    [GovernanceSystemSCConfig.V1]
+        NumNodes           = 500
+        ProposalCost       = "5000000000000000000" #5 eGLD
+        MinQuorum          = 400
+        MinPassThreshold   = 300
+        MinVetoThreshold   = 50
+    [GovernanceSystemSCConfig.Active]
+        ProposalCost       = "5000000000000000000" #5 eGLD
+        MinQuorum          = "500000000000" # MinQuorum is equal to 10*sqrt(NodePrice)
+        MinPassThreshold   = "251000000000"
+        MinVetoThreshold   = "249000000000"
+
+[DelegationManagerSystemSCConfig]
+    MinCreationDeposit = "100000000000000000000" #100
+    MinStakeAmount = "100000000000000000000" #100
+    ConfigChangeAddress = "yol19mfd998dpqcdm5m5z5gn7u3lw6jwnxk8w75gh4gzjxcxfvtxmm8q3gd0su" #should use a multisign contract instead of a wallet address
+
+[DelegationSystemSCConfig]
+    MinServiceFee  = 0
+    MaxServiceFee  = 10000

@@ -1,0 +1,8 @@
+./node -port 21100 -log-save -log-level *:INFO --log-logger-name -rest-api-interface localhost:10000 -destination-shard-as-observer=0 full-archive -working-directory work_dir/observer -config config/config.toml
+./node -port 21101 -log-save -log-level *:INFO --log-logger-name -rest-api-interface localhost:10001 -destination-shard-as-observer=metachain full-archive -working-directory work_dir/observer -config config/config.toml
+./node -port 21500 --profile-mode -log-save -log-level *:INFO --log-logger-name --log-correlation --use-health-service -rest-api-interface localhost:9500 -working-directory work_dir/validator -config config/config.toml
+./node -port 21501 --profile-mode -log-save -log-level *:INFO --log-logger-name --log-correlation --use-health-service -rest-api-interface localhost:9501 -working-directory work_dir/validator -config config/config.toml
+./node -port 21502 --profile-mode -log-save -log-level *:INFO --log-logger-name --log-correlation --use-health-service -rest-api-interface localhost:9502 -working-directory work_dir/validator -config config/config.toml
+./node -port 21503 --profile-mode -log-save -log-level *:INFO --log-logger-name --log-correlation --use-health-service -rest-api-interface localhost:9503 -working-directory work_dir/validator -config config/config.toml
+./node -port 21504 --profile-mode -log-save -log-level *:INFO --log-logger-name --log-correlation --use-health-service -rest-api-interface localhost:9504 -working-directory work_dir/validator -config config/config.toml
+./node -port 21505 --profile-mode -log-save -log-level *:INFO --log-logger-name --log-correlation --use-health-service -rest-api-interface localhost:9505 -working-directory work_dir/validator -config config/config.toml

@@ -1,0 +1,826 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/address/get": {
+            "post": {
+                "description": "get address full info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "address"
+                ],
+                "summary": "get address",
+                "parameters": [
+                    {
+                        "description": "GetAddressReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetAddressReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetAddressResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/block/by-hash/get": {
+            "post": {
+                "description": "get block full info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "block"
+                ],
+                "summary": "get block",
+                "parameters": [
+                    {
+                        "description": "GetBlockByHashReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetBlockByHashReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetBlockByHashResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/block/by-nonce/get": {
+            "post": {
+                "description": "get block full info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "block"
+                ],
+                "summary": "get block",
+                "parameters": [
+                    {
+                        "description": "GetBlockByNonceReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetBlockByNonceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetBlockByNonceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/block/last": {
+            "post": {
+                "description": "get last nonce in shard",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "block"
+                ],
+                "summary": "last block",
+                "parameters": [
+                    {
+                        "description": "GetLastBlockReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastBlockReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastBlockResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/cost": {
+            "post": {
+                "description": "get transaction cost",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "transaction cost",
+                "parameters": [
+                    {
+                        "description": "GetTransactionCostReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetTransactionCostReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetTransactionCostResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/create": {
+            "post": {
+                "description": "create transaction",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "create transaction",
+                "parameters": [
+                    {
+                        "description": "CreateTransactionReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateTransactionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateTransactionResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/get": {
+            "post": {
+                "description": "get transaction full info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "get transaction",
+                "parameters": [
+                    {
+                        "description": "GetTransactionReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetTransactionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetTransactionResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/address/create": {
+            "post": {
+                "description": "create yol-address for user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "address"
+                ],
+                "summary": "create user address",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateUserAddressResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/transaction/create": {
+            "post": {
+                "description": "create transaction for user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "create user transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "CreateTransactionUserReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateUserTransactionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateUserTransactionResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.CreateTransactionReq": {
+            "type": "object",
+            "properties": {
+                "nonce": {
+                    "description": "of sender",
+                    "type": "integer"
+                },
+                "receiver_address": {
+                    "type": "string"
+                },
+                "sender_address": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateTransactionResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateUserAddressResp": {
+            "type": "object",
+            "properties": {
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateUserTransactionReq": {
+            "type": "object",
+            "properties": {
+                "receiver_address": {
+                    "type": "string"
+                },
+                "sender_address": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateUserTransactionResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetAddressReq": {
+            "type": "object",
+            "properties": {
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetAddressResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "account": {
+                            "type": "object",
+                            "properties": {
+                                "address": {
+                                    "type": "string"
+                                },
+                                "balance": {
+                                    "type": "string"
+                                },
+                                "nonce": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetBlockByHashReq": {
+            "type": "object",
+            "properties": {
+                "hash": {
+                    "type": "string"
+                },
+                "shard": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetBlockByHashResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "block": {
+                            "type": "object",
+                            "properties": {
+                                "accumulatedFees": {
+                                    "type": "string"
+                                },
+                                "developerFees": {
+                                    "type": "string"
+                                },
+                                "epoch": {
+                                    "type": "integer"
+                                },
+                                "hash": {
+                                    "type": "string"
+                                },
+                                "miniBlocks": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "destinationShard": {
+                                                "type": "integer"
+                                            },
+                                            "hash": {
+                                                "type": "string"
+                                            },
+                                            "sourceShard": {
+                                                "type": "integer"
+                                            },
+                                            "transactions": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "destinationShard": {
+                                                            "type": "integer"
+                                                        },
+                                                        "gasLimit": {
+                                                            "type": "integer"
+                                                        },
+                                                        "gasPrice": {
+                                                            "type": "integer"
+                                                        },
+                                                        "hash": {
+                                                            "type": "string"
+                                                        },
+                                                        "miniblockHash": {
+                                                            "type": "string"
+                                                        },
+                                                        "miniblockType": {
+                                                            "type": "string"
+                                                        },
+                                                        "nonce": {
+                                                            "type": "integer"
+                                                        },
+                                                        "receiver": {
+                                                            "type": "string"
+                                                        },
+                                                        "sender": {
+                                                            "type": "string"
+                                                        },
+                                                        "signature": {
+                                                            "type": "string"
+                                                        },
+                                                        "sourceShard": {
+                                                            "type": "integer"
+                                                        },
+                                                        "status": {
+                                                            "type": "string"
+                                                        },
+                                                        "type": {
+                                                            "type": "string"
+                                                        },
+                                                        "value": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "nonce": {
+                                    "type": "integer"
+                                },
+                                "numTxs": {
+                                    "type": "integer"
+                                },
+                                "prevBlockHash": {
+                                    "type": "string"
+                                },
+                                "round": {
+                                    "type": "integer"
+                                },
+                                "shard": {
+                                    "type": "integer"
+                                },
+                                "status": {
+                                    "type": "string"
+                                },
+                                "timestamp": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetBlockByNonceReq": {
+            "type": "object",
+            "properties": {
+                "nonce": {
+                    "type": "integer"
+                },
+                "shard": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetBlockByNonceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "block": {
+                            "type": "object",
+                            "properties": {
+                                "accumulatedFees": {
+                                    "type": "string"
+                                },
+                                "developerFees": {
+                                    "type": "string"
+                                },
+                                "epoch": {
+                                    "type": "integer"
+                                },
+                                "hash": {
+                                    "type": "string"
+                                },
+                                "miniBlocks": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "destinationShard": {
+                                                "type": "integer"
+                                            },
+                                            "hash": {
+                                                "type": "string"
+                                            },
+                                            "sourceShard": {
+                                                "type": "integer"
+                                            },
+                                            "transactions": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "destinationShard": {
+                                                            "type": "integer"
+                                                        },
+                                                        "gasLimit": {
+                                                            "type": "integer"
+                                                        },
+                                                        "gasPrice": {
+                                                            "type": "integer"
+                                                        },
+                                                        "hash": {
+                                                            "type": "string"
+                                                        },
+                                                        "miniblockHash": {
+                                                            "type": "string"
+                                                        },
+                                                        "miniblockType": {
+                                                            "type": "string"
+                                                        },
+                                                        "nonce": {
+                                                            "type": "integer"
+                                                        },
+                                                        "receiver": {
+                                                            "type": "string"
+                                                        },
+                                                        "sender": {
+                                                            "type": "string"
+                                                        },
+                                                        "signature": {
+                                                            "type": "string"
+                                                        },
+                                                        "sourceShard": {
+                                                            "type": "integer"
+                                                        },
+                                                        "status": {
+                                                            "type": "string"
+                                                        },
+                                                        "type": {
+                                                            "type": "string"
+                                                        },
+                                                        "value": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "nonce": {
+                                    "type": "integer"
+                                },
+                                "numTxs": {
+                                    "type": "integer"
+                                },
+                                "prevBlockHash": {
+                                    "type": "string"
+                                },
+                                "round": {
+                                    "type": "integer"
+                                },
+                                "shard": {
+                                    "type": "integer"
+                                },
+                                "status": {
+                                    "type": "string"
+                                },
+                                "timestamp": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetLastBlockReq": {
+            "type": "object",
+            "properties": {
+                "shard": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetLastBlockResp": {
+            "type": "object",
+            "properties": {
+                "nonce": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetTransactionCostReq": {
+            "type": "object",
+            "properties": {
+                "receiver_address": {
+                    "type": "string"
+                },
+                "sender_address": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetTransactionCostResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "txGasUnits": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetTransactionReq": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetTransactionResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "transaction": {
+                            "type": "object",
+                            "properties": {
+                                "destinationShard": {
+                                    "type": "integer"
+                                },
+                                "gasLimit": {
+                                    "type": "integer"
+                                },
+                                "gasPrice": {
+                                    "type": "integer"
+                                },
+                                "nonce": {
+                                    "type": "integer"
+                                },
+                                "receiver": {
+                                    "type": "string"
+                                },
+                                "sender": {
+                                    "type": "string"
+                                },
+                                "signature": {
+                                    "type": "string"
+                                },
+                                "sourceShard": {
+                                    "type": "integer"
+                                },
+                                "status": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

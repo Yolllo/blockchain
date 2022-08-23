@@ -1,0 +1,19 @@
+{
+    "mnemonic_hash": "test_hash",
+    "auth_token": "test_token",
+    "proxy_address": "65.109.34.217:7950",
+    "router": {
+        "port": "8081"
+    },
+    "swagger": {
+        "host": "65.109.34.217",
+        "is_enable": true
+    },
+    "repo": {
+        "host": "65.109.34.217",
+        "port": "5432",
+        "user": "postgres",
+        "password": "password",
+        "name":"postgres"
+    }
+}

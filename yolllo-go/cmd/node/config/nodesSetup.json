@@ -1,0 +1,42 @@
+{
+  "startTime": 0,
+  "roundDuration": 5000,
+  "consensusGroupSize": 2,
+  "minNodesPerShard": 3,
+  "metaChainConsensusGroupSize": 2,
+  "metaChainMinNodes": 3,
+  "hysteresis": 0.2,
+  "adaptivity": true,
+  "initialNodes": [
+    {
+      "pubkey": "195055be6fe91099dfd7e3b3e9d6258527364cddf4ed8e0f3897b75f91c5105a6b2049efb5eb515fe41aae50b8edb10da8bf5800afa4cdffbc014f39612dd2fa20018779ffc87a62223ca6cbfc54bd2bc9eb44e2f9d17c94042fd8e7ae4d1a91",
+      "address": "yol17k7mkdrzhf6m74jwa4vl5kn0c52pjlz3dytyavxmp47ml5xf6emsgh05fk",
+      "initialRating": 0
+    },
+    {
+      "pubkey": "22f997b6fa9f69a84a3b1fc4d6ea6f45c64d9bea5465602bf541fb047c6023fabd372b30799f49db46b9ebbd99852307887045440dcb70b0abbc3b62e9ba0b081ad5b52cf8c74ce9d88d4ff550ce829b537308bffab79a9f45a3a0443c8c9009",
+      "address": "yol1syjj8xk3s75wqzywv4cvgs248z3g0038jxgg6rjymplfsrlul04szdp9l6",
+      "initialRating": 0
+    },
+    {
+      "pubkey": "93c064291e79f7f5508b1dcb064ce746d481243c579e19929909cddc56a3bdf23aeb4a7cbc29b73b860e653de4f36a13359b3ebf499e5e754bdb39a74cba219a32b3e06c5b442526c2eb4215081f56e8bc0cf1bfe5400649f00d6d13d1720592",
+      "address": "yol16awvhg8cjfgnmq7hvx4uzgewentynagg77nhc7ax7mzkvu7ek52q6cepev",
+      "initialRating": 0
+    },
+    {
+      "pubkey": "28e0176aacaf9605db500461cd9e81fd31001951527ff2666ccceb88112e9e2fc8dfa12e4bd75fcaa5c8930367022d14ccdf036e133f7219a1bbaa44fa3f810ecc57f06f6f87e832237706409a6c09b2a6c677daa6d7e9bedd091fea02541b99",
+      "address": "yol1k6q7ufppeev0rqqqtw5dkgxm576jzuwrflfpueejl5pxz8danrys9tpef9",
+      "initialRating": 0
+    },
+    {
+      "pubkey": "808e6c3ed49cf2775c7b328116df4bc9c84cc24855d550f56314036a397a37340e17f0f7808b5b7eec0826f780af641406649c3c69272af8f9faea9972ee7c07b0f348d1594bd071e466fbd2cc439108a3effb58fd8a85a13f4f9a7c61aa1708",
+      "address": "yol1fuc6xk3t3w3639e0px9342u05yqe7wuh09099gfpeu5sdqtzrv8q52zvyp",
+      "initialRating": 0
+    },
+    {
+      "pubkey": "c4a10e4f12f72e1a6646e5dbf311ac21d7db73aa07dc69a98bd44f8e7550e0d863011ec8fb5683e75d08ca095f57951197d1cb72e949c09061423d7fb9aad5a0b9de25c618bf9aa0fa0b3385bc2c2d87966d808d3bb25ffbd02783f939ebd719",
+      "address": "yol1rr5y3sy8kutrnn6r6tu256rjp90tre9a4la0fwn3t4fzn443zx3sw2j8xh",
+      "initialRating": 0
+    }
+  ]
+}

@@ -1,0 +1,534 @@
+definitions:
+  models.CreateTransactionReq:
+    properties:
+      nonce:
+        description: of sender
+        type: integer
+      receiver_address:
+        type: string
+      sender_address:
+        type: string
+      signature:
+        type: string
+      value:
+        type: string
+    type: object
+  models.CreateTransactionResp:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
+  models.CreateUserAddressResp:
+    properties:
+      wallet_address:
+        type: string
+    type: object
+  models.CreateUserTransactionReq:
+    properties:
+      receiver_address:
+        type: string
+      sender_address:
+        type: string
+      value:
+        type: string
+    type: object
+  models.CreateUserTransactionResp:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
+  models.GetAddressReq:
+    properties:
+      wallet_address:
+        type: string
+    type: object
+  models.GetAddressResp:
+    properties:
+      code:
+        type: string
+      data:
+        properties:
+          account:
+            properties:
+              address:
+                type: string
+              balance:
+                type: string
+              nonce:
+                type: integer
+            type: object
+        type: object
+      error:
+        type: string
+    type: object
+  models.GetBlockByHashReq:
+    properties:
+      hash:
+        type: string
+      shard:
+        type: integer
+    type: object
+  models.GetBlockByHashResp:
+    properties:
+      code:
+        type: string
+      data:
+        properties:
+          block:
+            properties:
+              accumulatedFees:
+                type: string
+              developerFees:
+                type: string
+              epoch:
+                type: integer
+              hash:
+                type: string
+              miniBlocks:
+                items:
+                  properties:
+                    destinationShard:
+                      type: integer
+                    hash:
+                      type: string
+                    sourceShard:
+                      type: integer
+                    transactions:
+                      items:
+                        properties:
+                          destinationShard:
+                            type: integer
+                          gasLimit:
+                            type: integer
+                          gasPrice:
+                            type: integer
+                          hash:
+                            type: string
+                          miniblockHash:
+                            type: string
+                          miniblockType:
+                            type: string
+                          nonce:
+                            type: integer
+                          receiver:
+                            type: string
+                          sender:
+                            type: string
+                          signature:
+                            type: string
+                          sourceShard:
+                            type: integer
+                          status:
+                            type: string
+                          type:
+                            type: string
+                          value:
+                            type: string
+                        type: object
+                      type: array
+                    type:
+                      type: string
+                  type: object
+                type: array
+              nonce:
+                type: integer
+              numTxs:
+                type: integer
+              prevBlockHash:
+                type: string
+              round:
+                type: integer
+              shard:
+                type: integer
+              status:
+                type: string
+              timestamp:
+                type: integer
+            type: object
+        type: object
+      error:
+        type: string
+    type: object
+  models.GetBlockByNonceReq:
+    properties:
+      nonce:
+        type: integer
+      shard:
+        type: integer
+    type: object
+  models.GetBlockByNonceResp:
+    properties:
+      code:
+        type: string
+      data:
+        properties:
+          block:
+            properties:
+              accumulatedFees:
+                type: string
+              developerFees:
+                type: string
+              epoch:
+                type: integer
+              hash:
+                type: string
+              miniBlocks:
+                items:
+                  properties:
+                    destinationShard:
+                      type: integer
+                    hash:
+                      type: string
+                    sourceShard:
+                      type: integer
+                    transactions:
+                      items:
+                        properties:
+                          destinationShard:
+                            type: integer
+                          gasLimit:
+                            type: integer
+                          gasPrice:
+                            type: integer
+                          hash:
+                            type: string
+                          miniblockHash:
+                            type: string
+                          miniblockType:
+                            type: string
+                          nonce:
+                            type: integer
+                          receiver:
+                            type: string
+                          sender:
+                            type: string
+                          signature:
+                            type: string
+                          sourceShard:
+                            type: integer
+                          status:
+                            type: string
+                          type:
+                            type: string
+                          value:
+                            type: string
+                        type: object
+                      type: array
+                    type:
+                      type: string
+                  type: object
+                type: array
+              nonce:
+                type: integer
+              numTxs:
+                type: integer
+              prevBlockHash:
+                type: string
+              round:
+                type: integer
+              shard:
+                type: integer
+              status:
+                type: string
+              timestamp:
+                type: integer
+            type: object
+        type: object
+      error:
+        type: string
+    type: object
+  models.GetLastBlockReq:
+    properties:
+      shard:
+        type: integer
+    type: object
+  models.GetLastBlockResp:
+    properties:
+      nonce:
+        type: integer
+    type: object
+  models.GetTransactionCostReq:
+    properties:
+      receiver_address:
+        type: string
+      sender_address:
+        type: string
+      value:
+        type: string
+    type: object
+  models.GetTransactionCostResp:
+    properties:
+      code:
+        type: string
+      data:
+        properties:
+          txGasUnits:
+            type: integer
+        type: object
+      error:
+        type: string
+    type: object
+  models.GetTransactionReq:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
+  models.GetTransactionResp:
+    properties:
+      code:
+        type: string
+      data:
+        properties:
+          transaction:
+            properties:
+              destinationShard:
+                type: integer
+              gasLimit:
+                type: integer
+              gasPrice:
+                type: integer
+              nonce:
+                type: integer
+              receiver:
+                type: string
+              sender:
+                type: string
+              signature:
+                type: string
+              sourceShard:
+                type: integer
+              status:
+                type: string
+              type:
+                type: string
+              value:
+                type: string
+            type: object
+        type: object
+      error:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /address/get:
+    post:
+      consumes:
+      - application/json
+      description: get address full info
+      parameters:
+      - description: GetAddressReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetAddressReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAddressResp'
+        "400":
+          description: Bad Request
+      summary: get address
+      tags:
+      - address
+  /block/by-hash/get:
+    post:
+      consumes:
+      - application/json
+      description: get block full info
+      parameters:
+      - description: GetBlockByHashReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetBlockByHashReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetBlockByHashResp'
+        "400":
+          description: Bad Request
+      summary: get block
+      tags:
+      - block
+  /block/by-nonce/get:
+    post:
+      consumes:
+      - application/json
+      description: get block full info
+      parameters:
+      - description: GetBlockByNonceReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetBlockByNonceReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetBlockByNonceResp'
+        "400":
+          description: Bad Request
+      summary: get block
+      tags:
+      - block
+  /block/last:
+    post:
+      consumes:
+      - application/json
+      description: get last nonce in shard
+      parameters:
+      - description: GetLastBlockReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetLastBlockReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetLastBlockResp'
+        "400":
+          description: Bad Request
+      summary: last block
+      tags:
+      - block
+  /transaction/cost:
+    post:
+      consumes:
+      - application/json
+      description: get transaction cost
+      parameters:
+      - description: GetTransactionCostReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetTransactionCostReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetTransactionCostResp'
+        "400":
+          description: Bad Request
+      summary: transaction cost
+      tags:
+      - transaction
+  /transaction/create:
+    post:
+      consumes:
+      - application/json
+      description: create transaction
+      parameters:
+      - description: CreateTransactionReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTransactionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateTransactionResp'
+        "400":
+          description: Bad Request
+      summary: create transaction
+      tags:
+      - transaction
+  /transaction/get:
+    post:
+      consumes:
+      - application/json
+      description: get transaction full info
+      parameters:
+      - description: GetTransactionReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetTransactionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetTransactionResp'
+        "400":
+          description: Bad Request
+      summary: get transaction
+      tags:
+      - transaction
+  /user/address/create:
+    post:
+      consumes:
+      - application/json
+      description: create yol-address for user
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateUserAddressResp'
+        "400":
+          description: Bad Request
+      summary: create user address
+      tags:
+      - address
+  /user/transaction/create:
+    post:
+      consumes:
+      - application/json
+      description: create transaction for user
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: CreateTransactionUserReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUserTransactionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateUserTransactionResp'
+        "400":
+          description: Bad Request
+      summary: create user transaction
+      tags:
+      - transaction
+swagger: "2.0"

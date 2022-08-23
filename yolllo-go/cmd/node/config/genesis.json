@@ -1,0 +1,72 @@
+[
+  {
+    "address": "yol154ue92kxlv7w3aavhzaav5lax5ncs6737sm5y24zldy8umcd97jsf36cd6",
+    "supply": "3997000000000000000000000",
+    "balance": "3997000000000000000000000",
+    "stakingvalue": "0",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  },
+  {
+    "address": "yol17k7mkdrzhf6m74jwa4vl5kn0c52pjlz3dytyavxmp47ml5xf6emsgh05fk",
+    "supply": "1003000000000000000000000",
+    "balance": "3000000000000000000000",
+    "stakingvalue": "1000000000000000000000000",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  },
+  {
+    "address": "yol1syjj8xk3s75wqzywv4cvgs248z3g0038jxgg6rjymplfsrlul04szdp9l6",
+    "supply": "1000000000000000000000000",
+    "balance": "0",
+    "stakingvalue": "1000000000000000000000000",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  },
+  {
+    "address": "yol16awvhg8cjfgnmq7hvx4uzgewentynagg77nhc7ax7mzkvu7ek52q6cepev",
+    "supply": "1000000000000000000000000",
+    "balance": "0",
+    "stakingvalue": "1000000000000000000000000",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  },
+  {
+    "address": "yol1k6q7ufppeev0rqqqtw5dkgxm576jzuwrflfpueejl5pxz8danrys9tpef9",
+    "supply": "1000000000000000000000000",
+    "balance": "0",
+    "stakingvalue": "1000000000000000000000000",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  },
+  {
+    "address": "yol1fuc6xk3t3w3639e0px9342u05yqe7wuh09099gfpeu5sdqtzrv8q52zvyp",
+    "supply": "1000000000000000000000000",
+    "balance": "0",
+    "stakingvalue": "1000000000000000000000000",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  },
+  {
+    "address": "yol1rr5y3sy8kutrnn6r6tu256rjp90tre9a4la0fwn3t4fzn443zx3sw2j8xh",
+    "supply": "1000000000000000000000000",
+    "balance": "0",
+    "stakingvalue": "1000000000000000000000000",
+    "delegation": {
+      "address": "",
+      "value": "0"
+    }
+  }
+]
