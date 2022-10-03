@@ -9,11 +9,11 @@ import (
 
 type Core struct {
 	Config   *config.Config
-	Repo     *repo.Repository
+	Repo     *repo.RepositoryManager
 	Mnemonic string
 }
 
-func NewCore(cfg *config.Config, repo *repo.Repository) (core *Core, err error) {
+func NewCore(cfg *config.Config, repo *repo.RepositoryManager) (core *Core, err error) {
 	core = &Core{
 		Config: cfg,
 		Repo:   repo,

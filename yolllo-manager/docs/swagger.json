@@ -41,6 +41,43 @@
                 }
             }
         },
+        "/address/is-valid": {
+            "post": {
+                "description": "check addr for valid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "address"
+                ],
+                "summary": "check addr for valid",
+                "parameters": [
+                    {
+                        "description": "IsValidAddressReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.IsValidAddressReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.IsValidAddressResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/block/by-hash/get": {
             "post": {
                 "description": "get block full info",
@@ -152,9 +189,135 @@
                 }
             }
         },
+        "/block/list/last": {
+            "post": {
+                "description": "get last block list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "block"
+                ],
+                "summary": "last block list",
+                "parameters": [
+                    {
+                        "description": "GetLastBlockListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastBlockListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastBlockListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/block/list/next": {
+            "post": {
+                "description": "get next block list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "block"
+                ],
+                "summary": "next block list",
+                "parameters": [
+                    {
+                        "description": "GetNextBlockListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextBlockListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextBlockListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/server/time/get": {
+            "post": {
+                "description": "get server time",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "get server time",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetServerTimeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/staking/current-reward/monthly": {
+            "post": {
+                "description": "get reward for current month by staking",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get staking current monthly reward",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetStakingCurrentMonthlyRewardResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/transaction/cost": {
             "post": {
-                "description": "get transaction cost",
+                "description": "get transaction cost in units value",
                 "consumes": [
                     "application/json"
                 ],
@@ -226,6 +389,43 @@
                 }
             }
         },
+        "/transaction/fee": {
+            "post": {
+                "description": "get transaction fee",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "transaction fee",
+                "parameters": [
+                    {
+                        "description": "GetTransactionFeeReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetTransactionFeeReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetTransactionFeeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/transaction/get": {
             "post": {
                 "description": "get transaction full info",
@@ -263,6 +463,191 @@
                 }
             }
         },
+        "/transaction/list/by-address/last": {
+            "post": {
+                "description": "get last transaction list page for address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "last transaction list by address",
+                "parameters": [
+                    {
+                        "description": "GetLastTransactionListByAddrReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastTransactionListByAddrReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastTransactionListByAddrResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/list/by-address/next": {
+            "post": {
+                "description": "get next transaction list page for address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "next transaction list by address",
+                "parameters": [
+                    {
+                        "description": "GetNextTransactionListByAddrReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextTransactionListByAddrReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextTransactionListByAddrResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/list/last": {
+            "post": {
+                "description": "get last transaction list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "last transaction list",
+                "parameters": [
+                    {
+                        "description": "GetLastTransactionListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastTransactionListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastTransactionListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/list/next": {
+            "post": {
+                "description": "get next transaction list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "next transaction list",
+                "parameters": [
+                    {
+                        "description": "GetNextTransactionListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextTransactionListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextTransactionListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/transaction/list/range": {
+            "post": {
+                "description": "get range transaction list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transaction"
+                ],
+                "summary": "range transaction list",
+                "parameters": [
+                    {
+                        "description": "GetRangeTransactionListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetRangeTransactionListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetRangeTransactionListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/user/address/create": {
             "post": {
                 "description": "create yol-address for user",
@@ -290,6 +675,428 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.CreateUserAddressResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/delegate": {
+            "post": {
+                "description": "delegate to staking, fee ~0,056 YOL",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "delegate user staking",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "DelegateUserStakingReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DelegateUserStakingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DelegateUserStakingResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/fee/get": {
+            "post": {
+                "description": "get user staking fee",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get user staking fee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingFeeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/fee/set": {
+            "post": {
+                "description": "set user staking fee, min 0, max 99.99, step 0.01",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "set user staking fee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "SetUserStakingFeeReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SetUserStakingFeeReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SetUserStakingFeeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/get": {
+            "post": {
+                "description": "get active user stake",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get user staking",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "GetUserStakingReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/reward/claim": {
+            "post": {
+                "description": "claim user reward, fee 0,006 YOL",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "claim user staking reward",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "ClaimUserStakingRewardReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimUserStakingRewardReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimUserStakingRewardResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/reward/get": {
+            "post": {
+                "description": "get user reward value",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get user staking reward",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "GetUserStakingRewardReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingRewardReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingRewardResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/total-stake/get": {
+            "post": {
+                "description": "get user total stake value",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get user total staking",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingTotalStakeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/undelegate": {
+            "post": {
+                "description": "undelegate from staking, fee ~0,056 YOL",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "undelegate user staking",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "UndelegateUserStakingReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UndelegateUserStakingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UndelegateUserStakingResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/undelegated/claim": {
+            "post": {
+                "description": "claim user undelegated coins",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "claim user staking undelegated",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "ClaimUserStakingUndelegatedReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimUserStakingUndelegatedReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimUserStakingUndelegatedResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/undelegated/get": {
+            "post": {
+                "description": "get user undelegated values that are ready for claim",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get user staking undelegated",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "GetUserStakingUndelegatedReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingUndelegatedReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingUndelegatedResp"
                         }
                     },
                     "400": {
@@ -344,6 +1151,58 @@
         }
     },
     "definitions": {
+        "models.BlockListBlockInfo": {
+            "type": "object",
+            "properties": {
+                "hash": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "shard_id": {
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "tx_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ClaimUserStakingRewardReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ClaimUserStakingRewardResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ClaimUserStakingUndelegatedReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ClaimUserStakingUndelegatedResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
         "models.CreateTransactionReq": {
             "type": "object",
             "properties": {
@@ -396,6 +1255,25 @@
             }
         },
         "models.CreateUserTransactionResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.DelegateUserStakingReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.DelegateUserStakingResp": {
             "type": "object",
             "properties": {
                 "transaction_hash": {
@@ -711,6 +1589,28 @@
                 }
             }
         },
+        "models.GetLastBlockListReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetLastBlockListResp": {
+            "type": "object",
+            "properties": {
+                "block_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.BlockListBlockInfo"
+                    }
+                },
+                "next_page_offset": {
+                    "type": "number"
+                }
+            }
+        },
         "models.GetLastBlockReq": {
             "type": "object",
             "properties": {
@@ -723,6 +1623,196 @@
             "type": "object",
             "properties": {
                 "nonce": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetLastTransactionListByAddrReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                },
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetLastTransactionListByAddrResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "transaction_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TransactionListTransactionInfo"
+                    }
+                }
+            }
+        },
+        "models.GetLastTransactionListReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetLastTransactionListResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "transaction_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TransactionListTransactionInfo"
+                    }
+                }
+            }
+        },
+        "models.GetNextBlockListReq": {
+            "type": "object",
+            "properties": {
+                "next_page_offset": {
+                    "type": "number"
+                },
+                "page_size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetNextBlockListResp": {
+            "type": "object",
+            "properties": {
+                "block_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.BlockListBlockInfo"
+                    }
+                },
+                "next_page_offset": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.GetNextTransactionListByAddrReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                },
+                "searchorder_after": {
+                    "type": "number"
+                },
+                "timestamp_after": {
+                    "type": "number"
+                },
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetNextTransactionListByAddrResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "transaction_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TransactionListTransactionInfo"
+                    }
+                }
+            }
+        },
+        "models.GetNextTransactionListReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                },
+                "searchorder_after": {
+                    "type": "number"
+                },
+                "timestamp_after": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.GetNextTransactionListResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "transaction_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TransactionListTransactionInfo"
+                    }
+                }
+            }
+        },
+        "models.GetRangeTransactionListReq": {
+            "type": "object",
+            "properties": {
+                "page_from": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "timestamp_from": {
+                    "type": "integer"
+                },
+                "timestamp_to": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetRangeTransactionListResp": {
+            "type": "object",
+            "properties": {
+                "total": {
+                    "type": "integer"
+                },
+                "transaction_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TransactionListTransactionInfo"
+                    }
+                }
+            }
+        },
+        "models.GetServerTimeResp": {
+            "type": "object",
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetStakingCurrentMonthlyRewardResp": {
+            "type": "object",
+            "properties": {
+                "value": {
                     "type": "integer"
                 }
             }
@@ -760,6 +1850,28 @@
                 }
             }
         },
+        "models.GetTransactionFeeReq": {
+            "type": "object",
+            "properties": {
+                "receiver_address": {
+                    "type": "string"
+                },
+                "sender_address": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetTransactionFeeResp": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.GetTransactionReq": {
             "type": "object",
             "properties": {
@@ -771,53 +1883,181 @@
         "models.GetTransactionResp": {
             "type": "object",
             "properties": {
-                "code": {
+                "hash": {
                     "type": "string"
                 },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "transaction": {
-                            "type": "object",
-                            "properties": {
-                                "destinationShard": {
-                                    "type": "integer"
-                                },
-                                "gasLimit": {
-                                    "type": "integer"
-                                },
-                                "gasPrice": {
-                                    "type": "integer"
-                                },
-                                "nonce": {
-                                    "type": "integer"
-                                },
-                                "receiver": {
-                                    "type": "string"
-                                },
-                                "sender": {
-                                    "type": "string"
-                                },
-                                "signature": {
-                                    "type": "string"
-                                },
-                                "sourceShard": {
-                                    "type": "integer"
-                                },
-                                "status": {
-                                    "type": "string"
-                                },
-                                "type": {
-                                    "type": "string"
-                                },
-                                "value": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
+                "nonce": {
+                    "type": "integer"
                 },
-                "error": {
+                "receiver": {
+                    "type": "string"
+                },
+                "receiverShard": {
+                    "type": "integer"
+                },
+                "sender": {
+                    "type": "string"
+                },
+                "senderShard": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingFeeResp": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.GetUserStakingReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingResp": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingRewardReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingRewardResp": {
+            "type": "object",
+            "properties": {
+                "reward_value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingTotalStakeResp": {
+            "type": "object",
+            "properties": {
+                "total_stake_value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingUndelegatedReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetUserStakingUndelegatedResp": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.IsValidAddressReq": {
+            "type": "object",
+            "properties": {
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.IsValidAddressResp": {
+            "type": "object",
+            "properties": {
+                "is_valid": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.SetUserStakingFeeReq": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.SetUserStakingFeeResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.TransactionListTransactionInfo": {
+            "type": "object",
+            "properties": {
+                "hash": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "receiver": {
+                    "type": "string"
+                },
+                "receiverShard": {
+                    "type": "integer"
+                },
+                "sender": {
+                    "type": "string"
+                },
+                "senderShard": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UndelegateUserStakingReq": {
+            "type": "object",
+            "properties": {
+                "user_address": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UndelegateUserStakingResp": {
+            "type": "object",
+            "properties": {
+                "transaction_hash": {
                     "type": "string"
                 }
             }

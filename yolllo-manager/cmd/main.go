@@ -15,13 +15,13 @@ func main() {
 		return
 	}
 
-	err = cfg.EnterMnemonic()
+	err = cfg.EnterInitData()
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 
-	repo, err := repo.NewRepository(cfg)
+	repo, err := repo.NewRepositoryManager(cfg)
 	if err != nil {
 		log.Fatal(err)
 		return

@@ -195,7 +195,7 @@ func (r *Router) GetBlockByHash(c *gin.Context) {
 // @Summary transaction cost
 // @Schemes
 // @Param JSON body models.GetTransactionCostReq true "GetTransactionCostReq params"
-// @Description get transaction cost
+// @Description get transaction cost in units value
 // @Tags transaction
 // @Accept json
 // @Produce json
@@ -211,6 +211,34 @@ func (r *Router) GetTransactionCost(c *gin.Context) {
 	}
 
 	resp, err := r.Core.GetTransactionCost(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetTransactionFee godoc
+// @Summary transaction fee
+// @Schemes
+// @Param JSON body models.GetTransactionFeeReq true "GetTransactionFeeReq params"
+// @Description get transaction fee
+// @Tags transaction
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetTransactionFeeResp
+// @Failure 400
+// @Router /transaction/fee [post]
+func (r *Router) GetTransactionFee(c *gin.Context) {
+	var req models.GetTransactionFeeReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetTransactionFee(req)
 	if err != nil {
 		c.String(http.StatusBadRequest, err.Error())
 		return
@@ -267,6 +295,654 @@ func (r *Router) CreateTransaction(c *gin.Context) {
 	}
 
 	resp, err := r.Core.CreateTransaction(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// DelegateUserStaking godoc
+// @Summary delegate user staking
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.DelegateUserStakingReq true "DelegateUserStakingReq params"
+// @Description delegate to staking, fee ~0,056 YOL
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.DelegateUserStakingResp
+// @Failure 400
+// @Router /user/staking/delegate [post]
+func (r *Router) DelegateUserStaking(c *gin.Context) {
+	var req models.DelegateUserStakingReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.DelegateUserStaking(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetUserStaking godoc
+// @Summary get user staking
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.GetUserStakingReq true "GetUserStakingReq params"
+// @Description get active user stake
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetUserStakingResp
+// @Failure 400
+// @Router /user/staking/get [post]
+func (r *Router) GetUserStaking(c *gin.Context) {
+	var req models.GetUserStakingReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.GetUserStaking(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// UndelegateUserStaking godoc
+// @Summary undelegate user staking
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.UndelegateUserStakingReq true "UndelegateUserStakingReq params"
+// @Description undelegate from staking, fee ~0,056 YOL
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.UndelegateUserStakingResp
+// @Failure 400
+// @Router /user/staking/undelegate [post]
+func (r *Router) UndelegateUserStaking(c *gin.Context) {
+	var req models.UndelegateUserStakingReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.UndelegateUserStaking(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetUserStakingUndelegated godoc
+// @Summary get user staking undelegated
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.GetUserStakingUndelegatedReq true "GetUserStakingUndelegatedReq params"
+// @Description get user undelegated values that are ready for claim
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetUserStakingUndelegatedResp
+// @Failure 400
+// @Router /user/staking/undelegated/get [post]
+func (r *Router) GetUserStakingUndelegated(c *gin.Context) {
+	var req models.GetUserStakingUndelegatedReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.GetUserStakingUndelegated(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// ClaimUserStakingUndelegated godoc
+// @Summary claim user staking undelegated
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.ClaimUserStakingUndelegatedReq true "ClaimUserStakingUndelegatedReq params"
+// @Description claim user undelegated coins
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.ClaimUserStakingUndelegatedResp
+// @Failure 400
+// @Router /user/staking/undelegated/claim [post]
+func (r *Router) ClaimUserStakingUndelegated(c *gin.Context) {
+	var req models.ClaimUserStakingUndelegatedReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.ClaimUserStakingUndelegated(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetUserStakingReward godoc
+// @Summary get user staking reward
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.GetUserStakingRewardReq true "GetUserStakingRewardReq params"
+// @Description get user reward value
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetUserStakingRewardResp
+// @Failure 400
+// @Router /user/staking/reward/get [post]
+func (r *Router) GetUserStakingReward(c *gin.Context) {
+	var req models.GetUserStakingRewardReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.GetUserStakingReward(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// ClaimUserStakingReward godoc
+// @Summary claim user staking reward
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.ClaimUserStakingRewardReq true "ClaimUserStakingRewardReq params"
+// @Description claim user reward, fee 0,006 YOL
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.ClaimUserStakingRewardResp
+// @Failure 400
+// @Router /user/staking/reward/claim [post]
+func (r *Router) ClaimUserStakingReward(c *gin.Context) {
+	var req models.ClaimUserStakingRewardReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.ClaimUserStakingReward(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetUserStakingTotalStake godoc
+// @Summary get user total staking
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Description get user total stake value
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetUserStakingTotalStakeResp
+// @Failure 400
+// @Router /user/staking/total-stake/get [post]
+func (r *Router) GetUserStakingTotalStake(c *gin.Context) {
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.GetUserStakingTotalStake()
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetLastBlockList godoc
+// @Summary last block list
+// @Schemes
+// @Param JSON body models.GetLastBlockListReq true "GetLastBlockListReq params"
+// @Description get last block list page
+// @Tags block
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetLastBlockListResp
+// @Failure 400
+// @Router /block/list/last [post]
+func (r *Router) GetLastBlockList(c *gin.Context) {
+	var req models.GetLastBlockListReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetLastBlockList(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetNextBlockList godoc
+// @Summary next block list
+// @Schemes
+// @Param JSON body models.GetNextBlockListReq true "GetNextBlockListReq params"
+// @Description get next block list page
+// @Tags block
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetNextBlockListResp
+// @Failure 400
+// @Router /block/list/next [post]
+func (r *Router) GetNextBlockList(c *gin.Context) {
+	var req models.GetNextBlockListReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetNextBlockList(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetLastTransactionList godoc
+// @Summary last transaction list
+// @Schemes
+// @Param JSON body models.GetLastTransactionListReq true "GetLastTransactionListReq params"
+// @Description get last transaction list page
+// @Tags transaction
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetLastTransactionListResp
+// @Failure 400
+// @Router /transaction/list/last [post]
+func (r *Router) GetLastTransactionList(c *gin.Context) {
+	var req models.GetLastTransactionListReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetLastTransactionList(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetNextTransactionList godoc
+// @Summary next transaction list
+// @Schemes
+// @Param JSON body models.GetNextTransactionListReq true "GetNextTransactionListReq params"
+// @Description get next transaction list page
+// @Tags transaction
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetNextTransactionListResp
+// @Failure 400
+// @Router /transaction/list/next [post]
+func (r *Router) GetNextTransactionList(c *gin.Context) {
+	var req models.GetNextTransactionListReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetNextTransactionList(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetLastTransactionListByAddr godoc
+// @Summary last transaction list by address
+// @Schemes
+// @Param JSON body models.GetLastTransactionListByAddrReq true "GetLastTransactionListByAddrReq params"
+// @Description get last transaction list page for address
+// @Tags transaction
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetLastTransactionListByAddrResp
+// @Failure 400
+// @Router /transaction/list/by-address/last [post]
+func (r *Router) GetLastTransactionListByAddr(c *gin.Context) {
+	var req models.GetLastTransactionListByAddrReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetLastTransactionListByAddr(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetNextTransactionListByAddr godoc
+// @Summary next transaction list by address
+// @Schemes
+// @Param JSON body models.GetNextTransactionListByAddrReq true "GetNextTransactionListByAddrReq params"
+// @Description get next transaction list page for address
+// @Tags transaction
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetNextTransactionListByAddrResp
+// @Failure 400
+// @Router /transaction/list/by-address/next [post]
+func (r *Router) GetNextTransactionListByAddr(c *gin.Context) {
+	var req models.GetNextTransactionListByAddrReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetNextTransactionListByAddr(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetStakingCurrentMonthlyReward godoc
+// @Summary get staking current monthly reward
+// @Schemes
+// @Description get reward for current month by staking
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetStakingCurrentMonthlyRewardResp
+// @Failure 400
+// @Router /staking/current-reward/monthly [post]
+func (r *Router) GetStakingCurrentMonthlyReward(c *gin.Context) {
+	resp, err := r.Core.GetStakingCurrentMonthlyReward()
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetServerTime godoc
+// @Summary get server time
+// @Schemes
+// @Description get server time
+// @Tags server
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetServerTimeResp
+// @Failure 400
+// @Router /server/time/get [post]
+func (r *Router) GetServerTime(c *gin.Context) {
+	resp, err := r.Core.GetServerTime()
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetRangeTransactionList godoc
+// @Summary range transaction list
+// @Schemes
+// @Param JSON body models.GetRangeTransactionListReq true "GetRangeTransactionListReq params"
+// @Description get range transaction list page
+// @Tags transaction
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetRangeTransactionListResp
+// @Failure 400
+// @Router /transaction/list/range [post]
+func (r *Router) GetRangeTransactionList(c *gin.Context) {
+	var req models.GetRangeTransactionListReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.GetRangeTransactionList(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// GetUserStakingFee godoc
+// @Summary get user staking fee
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Description get user staking fee
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GetUserStakingFeeResp
+// @Failure 400
+// @Router /user/staking/fee/get [post]
+func (r *Router) GetUserStakingFee(c *gin.Context) {
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.GetUserStakingFee()
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// SetUserStakingFee godoc
+// @Summary set user staking fee
+// @Schemes
+// @Param Authorization header string true "Authorization"
+// @Param JSON body models.SetUserStakingFeeReq true "SetUserStakingFeeReq params"
+// @Description set user staking fee, min 0, max 99.99, step 0.01
+// @Tags staking
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.SetUserStakingFeeResp
+// @Failure 400
+// @Router /user/staking/fee/set [post]
+func (r *Router) SetUserStakingFee(c *gin.Context) {
+	var req models.SetUserStakingFeeReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if len(c.Request.Header["Authorization"]) != 1 {
+		c.String(http.StatusBadRequest, "missing auth token")
+		return
+	}
+
+	authToken := c.Request.Header["Authorization"][0]
+	if authToken != r.Config.AuthToken {
+		c.String(http.StatusBadRequest, "wrong auth token")
+		return
+	}
+
+	resp, err := r.Core.SetUserStakingFee(req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
+// IsValidAddress godoc
+// @Summary check addr for valid
+// @Schemes
+// @Param JSON body models.IsValidAddressReq true "IsValidAddressReq params"
+// @Description check addr for valid
+// @Tags address
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.IsValidAddressResp
+// @Failure 400
+// @Router /address/is-valid [post]
+func (r *Router) IsValidAddress(c *gin.Context) {
+	var req models.IsValidAddressReq
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp, err := r.Core.IsValidAddress(req)
 	if err != nil {
 		c.String(http.StatusBadRequest, err.Error())
 		return

@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"math/big"
 	"net/http"
 	"strconv"
 	"yolllo-manager/models"
@@ -14,7 +15,7 @@ import (
 )
 
 func (c *Core) CreateUserTransaction(req models.CreateUserTransactionReq) (resp models.CreateUserTransactionResp, err error) {
-	senderWalletIndex, err := c.Repo.GetWalletIndexByWalletAddress(req.SenderAddress)
+	senderWalletIndex, err := c.Repo.PG.GetWalletIndexByWalletAddress(req.SenderAddress)
 	if err != nil {
 
 		return
@@ -23,6 +24,7 @@ func (c *Core) CreateUserTransaction(req models.CreateUserTransactionReq) (resp 
 	resHTTP, err := http.Get("http://" + c.Config.ProxyAddress + "/address/" + req.SenderAddress)
 	if err != nil {
 
+		return
 	}
 	defer resHTTP.Body.Close()
 	body, err := ioutil.ReadAll(resHTTP.Body)
@@ -104,26 +106,22 @@ func (c *Core) CreateUserTransaction(req models.CreateUserTransactionReq) (resp 
 }
 
 func (c *Core) GetTransaction(req models.GetTransactionReq) (resp models.GetTransactionResp, err error) {
-	resHTTP, err := http.Get("http://" + c.Config.ProxyAddress + "/transaction/" + req.TransactionHash)
-	if err != nil {
-
-	}
-	defer resHTTP.Body.Close()
-	body, err := ioutil.ReadAll(resHTTP.Body)
+	transactions, err := c.Repo.ES.GetTransactionByHash(req.TransactionHash)
 	if err != nil {
 
 		return
 	}
-	err = json.Unmarshal(body, &resp)
-	if err != nil {
-
-		return
-	}
-
-	if resp.Error != "" {
-		err = errors.New(resp.Error)
-
-		return
+	for _, transaction := range transactions.Hits.Hits {
+		resp.Hash = transaction.ID
+		resp.Nonce = transaction.Source.Nonce
+		resp.Receiver = transaction.Source.Receiver
+		resp.Sender = transaction.Source.Sender
+		resp.ReceiverShard = transaction.Source.ReceiverShard
+		resp.SenderShard = transaction.Source.SenderShard
+		resp.Value = transaction.Source.Value
+		resp.Timestamp = transaction.Source.Timestamp
+		resp.Status = transaction.Source.Status
+		break
 	}
 
 	return
@@ -163,6 +161,48 @@ func (c *Core) GetTransactionCost(req models.GetTransactionCostReq) (resp models
 
 		return
 	}
+
+	return
+}
+
+func (c *Core) GetTransactionFee(req models.GetTransactionFeeReq) (resp models.GetTransactionFeeResp, err error) {
+	var trxCostReq models.ProxyAPITransactionCostReq
+	trxCostReq.Value = req.Value
+	trxCostReq.Receiver = req.ReceiverAddress
+	trxCostReq.Sender = req.SenderAddress
+	trxCostReq.ChainID = "yolllo-network"
+	trxCostReq.Version = 1
+
+	jsonData, err := json.Marshal(trxCostReq)
+	if err != nil {
+
+		return
+	}
+
+	resHTTP, err := http.Post("http://"+c.Config.ProxyAddress+"/transaction/cost", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+
+		return
+	}
+	body, err := ioutil.ReadAll(resHTTP.Body)
+	if err != nil {
+
+		return
+	}
+	var trxCostResp models.ProxyAPITransactionCostResp
+	err = json.Unmarshal(body, &trxCostResp)
+	if err != nil {
+
+		return
+	}
+	if trxCostResp.Error != "" {
+		err = errors.New(trxCostResp.Error)
+
+		return
+	}
+
+	var gasPrice int64 = 1000000000
+	resp.Value = big.NewInt(0).Mul(big.NewInt(trxCostResp.Data.TxGasUnits), big.NewInt(gasPrice))
 
 	return
 }
@@ -208,6 +248,138 @@ func (c *Core) CreateTransaction(req models.CreateTransactionReq) (resp models.C
 	}
 
 	resp.TransactionHash = transactionInfo.Data.TxHash
+
+	return
+}
+
+func (c *Core) GetLastTransactionList(req models.GetLastTransactionListReq) (resp models.GetLastTransactionListResp, err error) {
+	transactions, err := c.Repo.ES.GetLastTransactions(req.PageSize)
+	if err != nil {
+
+		return
+	}
+	for _, transaction := range transactions.Hits.Hits {
+		var transactionInfo models.TransactionListTransactionInfo
+		transactionInfo.Hash = transaction.ID
+		transactionInfo.Nonce = transaction.Source.Nonce
+		transactionInfo.Receiver = transaction.Source.Receiver
+		transactionInfo.Sender = transaction.Source.Sender
+		transactionInfo.ReceiverShard = transaction.Source.ReceiverShard
+		transactionInfo.SenderShard = transaction.Source.SenderShard
+		transactionInfo.Value = transaction.Source.Value
+		transactionInfo.Timestamp = transaction.Source.Timestamp
+		transactionInfo.Status = transaction.Source.Status
+		resp.TransactionList = append(resp.TransactionList, transactionInfo)
+		if len(transaction.Sort) > 0 {
+			resp.NextTimestampAfter = transaction.Sort[0]
+			resp.NextSearchOrderAfter = transaction.Sort[1]
+		}
+	}
+
+	return
+}
+
+func (c *Core) GetNextTransactionList(req models.GetNextTransactionListReq) (resp models.GetNextTransactionListResp, err error) {
+	transactions, err := c.Repo.ES.GetNextTransactions(req.PageSize, req.TimestampAfter, req.SearchOrderAfter)
+	if err != nil {
+
+		return
+	}
+	for _, transaction := range transactions.Hits.Hits {
+		var transactionInfo models.TransactionListTransactionInfo
+		transactionInfo.Hash = transaction.ID
+		transactionInfo.Nonce = transaction.Source.Nonce
+		transactionInfo.Receiver = transaction.Source.Receiver
+		transactionInfo.Sender = transaction.Source.Sender
+		transactionInfo.ReceiverShard = transaction.Source.ReceiverShard
+		transactionInfo.SenderShard = transaction.Source.SenderShard
+		transactionInfo.Value = transaction.Source.Value
+		transactionInfo.Timestamp = transaction.Source.Timestamp
+		transactionInfo.Status = transaction.Source.Status
+		resp.TransactionList = append(resp.TransactionList, transactionInfo)
+		if len(transaction.Sort) > 0 {
+			resp.NextTimestampAfter = transaction.Sort[0]
+			resp.NextSearchOrderAfter = transaction.Sort[1]
+		}
+	}
+
+	return
+}
+
+func (c *Core) GetLastTransactionListByAddr(req models.GetLastTransactionListByAddrReq) (resp models.GetLastTransactionListByAddrResp, err error) {
+	transactions, err := c.Repo.ES.GetLastTransactionsByAddr(req.PageSize, req.WalletAddress)
+	if err != nil {
+
+		return
+	}
+	for _, transaction := range transactions.Hits.Hits {
+		var transactionInfo models.TransactionListTransactionInfo
+		transactionInfo.Hash = transaction.ID
+		transactionInfo.Nonce = transaction.Source.Nonce
+		transactionInfo.Receiver = transaction.Source.Receiver
+		transactionInfo.Sender = transaction.Source.Sender
+		transactionInfo.ReceiverShard = transaction.Source.ReceiverShard
+		transactionInfo.SenderShard = transaction.Source.SenderShard
+		transactionInfo.Value = transaction.Source.Value
+		transactionInfo.Timestamp = transaction.Source.Timestamp
+		transactionInfo.Status = transaction.Source.Status
+		resp.TransactionList = append(resp.TransactionList, transactionInfo)
+		if len(transaction.Sort) > 0 {
+			resp.NextTimestampAfter = transaction.Sort[0]
+			resp.NextSearchOrderAfter = transaction.Sort[1]
+		}
+	}
+
+	return
+}
+
+func (c *Core) GetNextTransactionListByAddr(req models.GetNextTransactionListByAddrReq) (resp models.GetNextTransactionListByAddrResp, err error) {
+	if err != nil {
+
+		return
+	}
+	transactions, err := c.Repo.ES.GetNextTransactionsByAddr(req.PageSize, req.WalletAddress, req.TimestampAfter, req.SearchOrderAfter)
+	for _, transaction := range transactions.Hits.Hits {
+		var transactionInfo models.TransactionListTransactionInfo
+		transactionInfo.Hash = transaction.ID
+		transactionInfo.Nonce = transaction.Source.Nonce
+		transactionInfo.Receiver = transaction.Source.Receiver
+		transactionInfo.Sender = transaction.Source.Sender
+		transactionInfo.ReceiverShard = transaction.Source.ReceiverShard
+		transactionInfo.SenderShard = transaction.Source.SenderShard
+		transactionInfo.Value = transaction.Source.Value
+		transactionInfo.Timestamp = transaction.Source.Timestamp
+		transactionInfo.Status = transaction.Source.Status
+		resp.TransactionList = append(resp.TransactionList, transactionInfo)
+		if len(transaction.Sort) > 0 {
+			resp.NextTimestampAfter = transaction.Sort[0]
+			resp.NextSearchOrderAfter = transaction.Sort[1]
+		}
+	}
+
+	return
+}
+
+func (c *Core) GetRangeTransactionList(req models.GetRangeTransactionListReq) (resp models.GetRangeTransactionListResp, err error) {
+	transactions, err := c.Repo.ES.GetRangeTransactions(req.PageSize, req.PageFrom, req.TimestampFrom, req.TimestampTo)
+	if err != nil {
+
+		return
+	}
+	for _, transaction := range transactions.Hits.Hits {
+		var transactionInfo models.TransactionListTransactionInfo
+		transactionInfo.Hash = transaction.ID
+		transactionInfo.Nonce = transaction.Source.Nonce
+		transactionInfo.Receiver = transaction.Source.Receiver
+		transactionInfo.Sender = transaction.Source.Sender
+		transactionInfo.ReceiverShard = transaction.Source.ReceiverShard
+		transactionInfo.SenderShard = transaction.Source.SenderShard
+		transactionInfo.Value = transaction.Source.Value
+		transactionInfo.Timestamp = transaction.Source.Timestamp
+		transactionInfo.Status = transaction.Source.Status
+		resp.TransactionList = append(resp.TransactionList, transactionInfo)
+	}
+	resp.Total = transactions.Hits.Total.Value
 
 	return
 }

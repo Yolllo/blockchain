@@ -7,9 +7,9 @@
     Enabled           = false
     IndexerCacheSize  = 0
     BulkRequestMaxSizeInBytes = 4194304 # 4MB
-    URL               = "http://localhost:9200"
+    URL               = "http://127.0.0.1:9200"
     UseKibana         = false
-    Username          = ""
+    Username          = "elastic"
     Password          = ""
     # EnabledIndexes represents a slice of indexes that will be enabled for indexing. Full list is:
     # ["rating", "transactions", "blocks", "validators", "miniblocks", "rounds", "accounts", "accountshistory", "receipts", "scresults", "accountsesdt", "accountsesdthistory", "epochinfo", "scdeploys", "tokens", "tags", "logs", "delegators", "operations"]

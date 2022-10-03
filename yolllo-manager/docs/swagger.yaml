@@ -1,4 +1,37 @@
 definitions:
+  models.BlockListBlockInfo:
+    properties:
+      hash:
+        type: string
+      nonce:
+        type: integer
+      shard_id:
+        type: integer
+      timestamp:
+        type: integer
+      tx_count:
+        type: integer
+    type: object
+  models.ClaimUserStakingRewardReq:
+    properties:
+      user_address:
+        type: string
+    type: object
+  models.ClaimUserStakingRewardResp:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
+  models.ClaimUserStakingUndelegatedReq:
+    properties:
+      user_address:
+        type: string
+    type: object
+  models.ClaimUserStakingUndelegatedResp:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
   models.CreateTransactionReq:
     properties:
       nonce:
@@ -33,6 +66,18 @@ definitions:
         type: string
     type: object
   models.CreateUserTransactionResp:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
+  models.DelegateUserStakingReq:
+    properties:
+      user_address:
+        type: string
+      value:
+        type: string
+    type: object
+  models.DelegateUserStakingResp:
     properties:
       transaction_hash:
         type: string
@@ -237,6 +282,20 @@ definitions:
       error:
         type: string
     type: object
+  models.GetLastBlockListReq:
+    properties:
+      page_size:
+        type: integer
+    type: object
+  models.GetLastBlockListResp:
+    properties:
+      block_list:
+        items:
+          $ref: '#/definitions/models.BlockListBlockInfo'
+        type: array
+      next_page_offset:
+        type: number
+    type: object
   models.GetLastBlockReq:
     properties:
       shard:
@@ -245,6 +304,128 @@ definitions:
   models.GetLastBlockResp:
     properties:
       nonce:
+        type: integer
+    type: object
+  models.GetLastTransactionListByAddrReq:
+    properties:
+      page_size:
+        type: integer
+      wallet_address:
+        type: string
+    type: object
+  models.GetLastTransactionListByAddrResp:
+    properties:
+      next_searchorder_after:
+        type: number
+      next_timestamp_after:
+        type: number
+      transaction_list:
+        items:
+          $ref: '#/definitions/models.TransactionListTransactionInfo'
+        type: array
+    type: object
+  models.GetLastTransactionListReq:
+    properties:
+      page_size:
+        type: integer
+    type: object
+  models.GetLastTransactionListResp:
+    properties:
+      next_searchorder_after:
+        type: number
+      next_timestamp_after:
+        type: number
+      transaction_list:
+        items:
+          $ref: '#/definitions/models.TransactionListTransactionInfo'
+        type: array
+    type: object
+  models.GetNextBlockListReq:
+    properties:
+      next_page_offset:
+        type: number
+      page_size:
+        type: integer
+    type: object
+  models.GetNextBlockListResp:
+    properties:
+      block_list:
+        items:
+          $ref: '#/definitions/models.BlockListBlockInfo'
+        type: array
+      next_page_offset:
+        type: number
+    type: object
+  models.GetNextTransactionListByAddrReq:
+    properties:
+      page_size:
+        type: integer
+      searchorder_after:
+        type: number
+      timestamp_after:
+        type: number
+      wallet_address:
+        type: string
+    type: object
+  models.GetNextTransactionListByAddrResp:
+    properties:
+      next_searchorder_after:
+        type: number
+      next_timestamp_after:
+        type: number
+      transaction_list:
+        items:
+          $ref: '#/definitions/models.TransactionListTransactionInfo'
+        type: array
+    type: object
+  models.GetNextTransactionListReq:
+    properties:
+      page_size:
+        type: integer
+      searchorder_after:
+        type: number
+      timestamp_after:
+        type: number
+    type: object
+  models.GetNextTransactionListResp:
+    properties:
+      next_searchorder_after:
+        type: number
+      next_timestamp_after:
+        type: number
+      transaction_list:
+        items:
+          $ref: '#/definitions/models.TransactionListTransactionInfo'
+        type: array
+    type: object
+  models.GetRangeTransactionListReq:
+    properties:
+      page_from:
+        type: integer
+      page_size:
+        type: integer
+      timestamp_from:
+        type: integer
+      timestamp_to:
+        type: integer
+    type: object
+  models.GetRangeTransactionListResp:
+    properties:
+      total:
+        type: integer
+      transaction_list:
+        items:
+          $ref: '#/definitions/models.TransactionListTransactionInfo'
+        type: array
+    type: object
+  models.GetServerTimeResp:
+    properties:
+      timestamp:
+        type: integer
+    type: object
+  models.GetStakingCurrentMonthlyRewardResp:
+    properties:
+      value:
         type: integer
     type: object
   models.GetTransactionCostReq:
@@ -268,6 +449,20 @@ definitions:
       error:
         type: string
     type: object
+  models.GetTransactionFeeReq:
+    properties:
+      receiver_address:
+        type: string
+      sender_address:
+        type: string
+      value:
+        type: string
+    type: object
+  models.GetTransactionFeeResp:
+    properties:
+      value:
+        type: integer
+    type: object
   models.GetTransactionReq:
     properties:
       transaction_hash:
@@ -275,37 +470,118 @@ definitions:
     type: object
   models.GetTransactionResp:
     properties:
-      code:
+      hash:
         type: string
-      data:
-        properties:
-          transaction:
-            properties:
-              destinationShard:
-                type: integer
-              gasLimit:
-                type: integer
-              gasPrice:
-                type: integer
-              nonce:
-                type: integer
-              receiver:
-                type: string
-              sender:
-                type: string
-              signature:
-                type: string
-              sourceShard:
-                type: integer
-              status:
-                type: string
-              type:
-                type: string
-              value:
-                type: string
-            type: object
-        type: object
-      error:
+      nonce:
+        type: integer
+      receiver:
+        type: string
+      receiverShard:
+        type: integer
+      sender:
+        type: string
+      senderShard:
+        type: integer
+      status:
+        type: string
+      timestamp:
+        type: integer
+      value:
+        type: string
+    type: object
+  models.GetUserStakingFeeResp:
+    properties:
+      value:
+        type: number
+    type: object
+  models.GetUserStakingReq:
+    properties:
+      user_address:
+        type: string
+    type: object
+  models.GetUserStakingResp:
+    properties:
+      value:
+        type: string
+    type: object
+  models.GetUserStakingRewardReq:
+    properties:
+      user_address:
+        type: string
+    type: object
+  models.GetUserStakingRewardResp:
+    properties:
+      reward_value:
+        type: string
+    type: object
+  models.GetUserStakingTotalStakeResp:
+    properties:
+      total_stake_value:
+        type: string
+    type: object
+  models.GetUserStakingUndelegatedReq:
+    properties:
+      user_address:
+        type: string
+    type: object
+  models.GetUserStakingUndelegatedResp:
+    properties:
+      value:
+        items:
+          type: string
+        type: array
+    type: object
+  models.IsValidAddressReq:
+    properties:
+      wallet_address:
+        type: string
+    type: object
+  models.IsValidAddressResp:
+    properties:
+      is_valid:
+        type: boolean
+    type: object
+  models.SetUserStakingFeeReq:
+    properties:
+      value:
+        type: number
+    type: object
+  models.SetUserStakingFeeResp:
+    properties:
+      transaction_hash:
+        type: string
+    type: object
+  models.TransactionListTransactionInfo:
+    properties:
+      hash:
+        type: string
+      nonce:
+        type: integer
+      receiver:
+        type: string
+      receiverShard:
+        type: integer
+      sender:
+        type: string
+      senderShard:
+        type: integer
+      status:
+        type: string
+      timestamp:
+        type: integer
+      value:
+        type: string
+    type: object
+  models.UndelegateUserStakingReq:
+    properties:
+      user_address:
+        type: string
+      value:
+        type: string
+    type: object
+  models.UndelegateUserStakingResp:
+    properties:
+      transaction_hash:
         type: string
     type: object
 info:
@@ -333,6 +609,30 @@ paths:
         "400":
           description: Bad Request
       summary: get address
+      tags:
+      - address
+  /address/is-valid:
+    post:
+      consumes:
+      - application/json
+      description: check addr for valid
+      parameters:
+      - description: IsValidAddressReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.IsValidAddressReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.IsValidAddressResp'
+        "400":
+          description: Bad Request
+      summary: check addr for valid
       tags:
       - address
   /block/by-hash/get:
@@ -407,11 +707,93 @@ paths:
       summary: last block
       tags:
       - block
+  /block/list/last:
+    post:
+      consumes:
+      - application/json
+      description: get last block list page
+      parameters:
+      - description: GetLastBlockListReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetLastBlockListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetLastBlockListResp'
+        "400":
+          description: Bad Request
+      summary: last block list
+      tags:
+      - block
+  /block/list/next:
+    post:
+      consumes:
+      - application/json
+      description: get next block list page
+      parameters:
+      - description: GetNextBlockListReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetNextBlockListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetNextBlockListResp'
+        "400":
+          description: Bad Request
+      summary: next block list
+      tags:
+      - block
+  /server/time/get:
+    post:
+      consumes:
+      - application/json
+      description: get server time
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetServerTimeResp'
+        "400":
+          description: Bad Request
+      summary: get server time
+      tags:
+      - server
+  /staking/current-reward/monthly:
+    post:
+      consumes:
+      - application/json
+      description: get reward for current month by staking
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetStakingCurrentMonthlyRewardResp'
+        "400":
+          description: Bad Request
+      summary: get staking current monthly reward
+      tags:
+      - staking
   /transaction/cost:
     post:
       consumes:
       - application/json
-      description: get transaction cost
+      description: get transaction cost in units value
       parameters:
       - description: GetTransactionCostReq params
         in: body
@@ -455,6 +837,30 @@ paths:
       summary: create transaction
       tags:
       - transaction
+  /transaction/fee:
+    post:
+      consumes:
+      - application/json
+      description: get transaction fee
+      parameters:
+      - description: GetTransactionFeeReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetTransactionFeeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetTransactionFeeResp'
+        "400":
+          description: Bad Request
+      summary: transaction fee
+      tags:
+      - transaction
   /transaction/get:
     post:
       consumes:
@@ -477,6 +883,126 @@ paths:
         "400":
           description: Bad Request
       summary: get transaction
+      tags:
+      - transaction
+  /transaction/list/by-address/last:
+    post:
+      consumes:
+      - application/json
+      description: get last transaction list page for address
+      parameters:
+      - description: GetLastTransactionListByAddrReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetLastTransactionListByAddrReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetLastTransactionListByAddrResp'
+        "400":
+          description: Bad Request
+      summary: last transaction list by address
+      tags:
+      - transaction
+  /transaction/list/by-address/next:
+    post:
+      consumes:
+      - application/json
+      description: get next transaction list page for address
+      parameters:
+      - description: GetNextTransactionListByAddrReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetNextTransactionListByAddrReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetNextTransactionListByAddrResp'
+        "400":
+          description: Bad Request
+      summary: next transaction list by address
+      tags:
+      - transaction
+  /transaction/list/last:
+    post:
+      consumes:
+      - application/json
+      description: get last transaction list page
+      parameters:
+      - description: GetLastTransactionListReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetLastTransactionListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetLastTransactionListResp'
+        "400":
+          description: Bad Request
+      summary: last transaction list
+      tags:
+      - transaction
+  /transaction/list/next:
+    post:
+      consumes:
+      - application/json
+      description: get next transaction list page
+      parameters:
+      - description: GetNextTransactionListReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetNextTransactionListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetNextTransactionListResp'
+        "400":
+          description: Bad Request
+      summary: next transaction list
+      tags:
+      - transaction
+  /transaction/list/range:
+    post:
+      consumes:
+      - application/json
+      description: get range transaction list page
+      parameters:
+      - description: GetRangeTransactionListReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetRangeTransactionListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetRangeTransactionListResp'
+        "400":
+          description: Bad Request
+      summary: range transaction list
       tags:
       - transaction
   /user/address/create:
@@ -502,6 +1028,284 @@ paths:
       summary: create user address
       tags:
       - address
+  /user/staking/delegate:
+    post:
+      consumes:
+      - application/json
+      description: delegate to staking, fee ~0,056 YOL
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: DelegateUserStakingReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.DelegateUserStakingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DelegateUserStakingResp'
+        "400":
+          description: Bad Request
+      summary: delegate user staking
+      tags:
+      - staking
+  /user/staking/fee/get:
+    post:
+      consumes:
+      - application/json
+      description: get user staking fee
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserStakingFeeResp'
+        "400":
+          description: Bad Request
+      summary: get user staking fee
+      tags:
+      - staking
+  /user/staking/fee/set:
+    post:
+      consumes:
+      - application/json
+      description: set user staking fee, min 0, max 99.99, step 0.01
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: SetUserStakingFeeReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.SetUserStakingFeeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SetUserStakingFeeResp'
+        "400":
+          description: Bad Request
+      summary: set user staking fee
+      tags:
+      - staking
+  /user/staking/get:
+    post:
+      consumes:
+      - application/json
+      description: get active user stake
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: GetUserStakingReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetUserStakingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserStakingResp'
+        "400":
+          description: Bad Request
+      summary: get user staking
+      tags:
+      - staking
+  /user/staking/reward/claim:
+    post:
+      consumes:
+      - application/json
+      description: claim user reward, fee 0,006 YOL
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ClaimUserStakingRewardReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.ClaimUserStakingRewardReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ClaimUserStakingRewardResp'
+        "400":
+          description: Bad Request
+      summary: claim user staking reward
+      tags:
+      - staking
+  /user/staking/reward/get:
+    post:
+      consumes:
+      - application/json
+      description: get user reward value
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: GetUserStakingRewardReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetUserStakingRewardReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserStakingRewardResp'
+        "400":
+          description: Bad Request
+      summary: get user staking reward
+      tags:
+      - staking
+  /user/staking/total-stake/get:
+    post:
+      consumes:
+      - application/json
+      description: get user total stake value
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserStakingTotalStakeResp'
+        "400":
+          description: Bad Request
+      summary: get user total staking
+      tags:
+      - staking
+  /user/staking/undelegate:
+    post:
+      consumes:
+      - application/json
+      description: undelegate from staking, fee ~0,056 YOL
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: UndelegateUserStakingReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.UndelegateUserStakingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UndelegateUserStakingResp'
+        "400":
+          description: Bad Request
+      summary: undelegate user staking
+      tags:
+      - staking
+  /user/staking/undelegated/claim:
+    post:
+      consumes:
+      - application/json
+      description: claim user undelegated coins
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ClaimUserStakingUndelegatedReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.ClaimUserStakingUndelegatedReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ClaimUserStakingUndelegatedResp'
+        "400":
+          description: Bad Request
+      summary: claim user staking undelegated
+      tags:
+      - staking
+  /user/staking/undelegated/get:
+    post:
+      consumes:
+      - application/json
+      description: get user undelegated values that are ready for claim
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: GetUserStakingUndelegatedReq params
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetUserStakingUndelegatedReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserStakingUndelegatedResp'
+        "400":
+          description: Bad Request
+      summary: get user staking undelegated
+      tags:
+      - staking
   /user/transaction/create:
     post:
       consumes:

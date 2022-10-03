@@ -1,7 +1,7 @@
 [StakingSystemSCConfig]
-    GenesisNodePrice = "1000000000000000000000000" #2.5K eGLD
-    MinStakeValue = "100000000000000000000" #100 eGLD
-    MinUnstakeTokensValue = "10000000000000000000" #10eGLD
+    GenesisNodePrice = "1000000000000000000000000" #1KK YOL
+    MinStakeValue = "100000000000000000000" #100 YOL
+    MinUnstakeTokensValue = "10000000000000000000" #10 YOL
     UnBondPeriod = 250
     UnBondPeriodInEpochs = 1
     MinStepValue = "100000000000000000000"
@@ -9,30 +9,30 @@
     MaximumPercentageToBleed = 0.5
     BleedPercentagePerRound = 0.00001
     MaxNumberOfNodesForStake = 36
-    UnJailValue = "100000000000000000000" #100
+    UnJailValue = "100000000000000000000" #100 YOL
     ActivateBLSPubKeyMessageVerification = false
 
 [ESDTSystemSCConfig]
-    BaseIssuingCost = "5000000000000000000" #5 eGLD
+    BaseIssuingCost = "5000000000000000000" #5 YOL
     OwnerAddress = "yol1md4zs78ywysuvpw6azc7npp7arkuqc5tzpjgmdju62ffcr3yd52slh956t"
 
 [GovernanceSystemSCConfig]
     FirstWhitelistedAddress = "yol19mfd998dpqcdm5m5z5gn7u3lw6jwnxk8w75gh4gzjxcxfvtxmm8q3gd0su" #should use a multisign contract instead of a wallet address
     [GovernanceSystemSCConfig.V1]
         NumNodes           = 500
-        ProposalCost       = "5000000000000000000" #5 eGLD
+        ProposalCost       = "5000000000000000000" #5 YOL
         MinQuorum          = 400
         MinPassThreshold   = 300
         MinVetoThreshold   = 50
     [GovernanceSystemSCConfig.Active]
-        ProposalCost       = "5000000000000000000" #5 eGLD
+        ProposalCost       = "5000000000000000000" #5 YOL
         MinQuorum          = "500000000000" # MinQuorum is equal to 10*sqrt(NodePrice)
         MinPassThreshold   = "251000000000"
         MinVetoThreshold   = "249000000000"
 
 [DelegationManagerSystemSCConfig]
-    MinCreationDeposit = "100000000000000000000" #100
-    MinStakeAmount = "100000000000000000000" #100
+    MinCreationDeposit = "1000000000000000000000000" #1KK YOL
+    MinStakeAmount = "1000000000000000000" #1 YOL
     ConfigChangeAddress = "yol19mfd998dpqcdm5m5z5gn7u3lw6jwnxk8w75gh4gzjxcxfvtxmm8q3gd0su" #should use a multisign contract instead of a wallet address
 
 [DelegationSystemSCConfig]

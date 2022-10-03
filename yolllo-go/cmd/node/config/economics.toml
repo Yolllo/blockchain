@@ -1,6 +1,6 @@
 #Economics config of the node
 [GlobalSettings]
-    GenesisTotalSupply = "10000000000000000000000000" #10kk
+    GenesisTotalSupply = "10000000000000000000000000" #10KK YOL
     MinimumInflation   = 0.00000001
     YearSettings = [
         {Year = 1, MaximumInflation  = 0.00000001},
@@ -15,7 +15,7 @@
         {Year = 10, MaximumInflation = 0.00000001},
         {Year = 11, MaximumInflation = 0.00000001},
     ]
-    Denomination = 18 # represents the smallest eGLD subdivision (10^-X eGLD for a denomination of X)
+    Denomination = 18 # represents the smallest YOL subdivision (10^-X YOL for a denomination of X)
     GenesisMintingSenderAddress = "yol12snlamhxzgd928etwwxcfwn4067xj60jgxqq0wz8d46y97vtsscqjqfx6d"
 
 [RewardsSettings]
@@ -25,7 +25,7 @@
     DeveloperPercentage = 0.3 #fraction of value 0.3 - 30%
     ProtocolSustainabilityPercentage = 0.1 #fraction of value 0.1 - 10%
     ProtocolSustainabilityAddress = "yol1h7v5umggn7xskd0zelf55zh4a5hscvl00feggjhewr7yjkmujvxsv7jks0"
-    TopUpGradientPoint = "10000000000000000000000000" # 10MIL eGLD (eligible topUp)
+    TopUpGradientPoint = "10000000000000000000000000" # 10KK YOL (eligible topUp)
     TopUpFactor = 0.25 # fraction of value 0.25 - 25%
 
     [[RewardsSettings.RewardsConfigByEpoch]]
@@ -34,7 +34,7 @@
     DeveloperPercentage = 0.3 #fraction of value 0.3 - 30%
     ProtocolSustainabilityPercentage = 0.1 #fraction of value 0.1 - 10%
     ProtocolSustainabilityAddress = "yol1h7v5umggn7xskd0zelf55zh4a5hscvl00feggjhewr7yjkmujvxsv7jks0"
-    TopUpGradientPoint = "10000000000000000000000000" # 2MIL teGLD (eligible topUp)
+    TopUpGradientPoint = "10000000000000000000000000" # 10KK YOL (eligible topUp)
     TopUpFactor = 0.5 # fraction of value 0.5 - 50%
 
 [FeeSettings]
@@ -42,7 +42,7 @@
         {EnableEpoch = 0, MaxGasLimitPerBlock = "1500000000", MaxGasLimitPerMiniBlock = "1500000000", MaxGasLimitPerMetaBlock = "15000000000", MaxGasLimitPerMetaMiniBlock = "15000000000", MaxGasLimitPerTx = "1500000000", MinGasLimit = "50000"},
         {EnableEpoch = 1, MaxGasLimitPerBlock = "1500000000", MaxGasLimitPerMiniBlock = "1500000000", MaxGasLimitPerMetaBlock = "15000000000", MaxGasLimitPerMetaMiniBlock = "15000000000", MaxGasLimitPerTx = "1500000000", MinGasLimit = "50000"},
     ]
-    MinGasPrice             = "1000000000" #will yield min tx fee of 0.00005 eGLD
+    MinGasPrice             = "1000000000" #will yield min tx fee of 0.00005 YOL
     GasPriceModifier        = 0.01
     GasPerDataByte          = "1500"
     DataLimitForBaseCalc    = "10000"

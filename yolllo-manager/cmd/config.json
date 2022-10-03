@@ -1,19 +1,29 @@
 {
     "mnemonic_hash": "test_hash",
     "auth_token": "test_token",
-    "proxy_address": "65.109.34.217:7950",
+    "staking_address": "",
+    "staking_owner": "",
+    "proxy_address": "127.0.0.1:7950",
     "router": {
         "port": "8081"
     },
     "swagger": {
-        "host": "65.109.34.217",
+        "host": "127.0.0.1",
         "is_enable": true
     },
     "repo": {
-        "host": "65.109.34.217",
-        "port": "5432",
-        "user": "postgres",
-        "password": "password",
-        "name":"postgres"
+        "PostgreSQL": {
+            "host": "127.0.0.1",
+            "port": "5432",
+            "user": "",
+            "password_hash": "",
+            "name":""
+        },
+        "ElasticSearch": {
+            "host": "127.0.0.1",
+            "port": "9200",
+            "user": "elastic",
+            "password_hash": ""
+        }
     }
 }

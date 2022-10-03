@@ -9,7 +9,7 @@ import (
 )
 
 func (c *Core) CreateUserAddress() (resp models.CreateUserAddressResp, err error) {
-	walletAddress, err := c.Repo.CreateNewWallet()
+	walletAddress, err := c.Repo.PG.CreateNewWallet()
 	if err != nil {
 
 		return
@@ -24,6 +24,7 @@ func (c *Core) GetWalletBalance(req models.GetAddressReq) (resp models.GetAddres
 	resHTTP, err := http.Get("http://" + c.Config.ProxyAddress + "/address/" + req.WalletAddress)
 	if err != nil {
 
+		return
 	}
 	defer resHTTP.Body.Close()
 	body, err := ioutil.ReadAll(resHTTP.Body)
