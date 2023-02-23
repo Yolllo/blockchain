@@ -1,4 +1,5 @@
 {
+    "network_name": "Testnet",
     "mnemonic_hash": "test_hash",
     "auth_token": "test_token",
     "staking_address": "",

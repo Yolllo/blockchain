@@ -22,3 +22,8 @@ func NewCore(cfg *config.Config, repo *repo.RepositoryManager) (core *Core, err 
 
 	return
 }
+
+func (c *Core) GetServiceAlive() (resp bool, err error) {
+
+	return true, nil
+}

@@ -12,6 +12,7 @@ import (
 )
 
 type Config struct {
+	NetworkName    string `json:"network_name"`
 	MnemonicHash   string `json:"mnemonic_hash"`
 	AuthToken      string `json:"auth_token"`
 	ProxyAddress   string `json:"proxy_address"`

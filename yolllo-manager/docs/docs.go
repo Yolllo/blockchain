@@ -275,6 +275,228 @@ const docTemplate = `{
                 }
             }
         },
+        "/operation/get": {
+            "post": {
+                "description": "get operation full info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "operation"
+                ],
+                "summary": "get operation",
+                "parameters": [
+                    {
+                        "description": "GetOperationReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetOperationReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetOperationResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/operation/list/by-address/last": {
+            "post": {
+                "description": "get last operation list page for address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "operation"
+                ],
+                "summary": "last operation list by address",
+                "parameters": [
+                    {
+                        "description": "GetLastOperationListByAddrReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastOperationListByAddrReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastOperationListByAddrResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/operation/list/by-address/next": {
+            "post": {
+                "description": "get next operation list page for address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "operation"
+                ],
+                "summary": "next operation list by address",
+                "parameters": [
+                    {
+                        "description": "GetNextOperationListByAddrReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextOperationListByAddrReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextOperationListByAddrResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/operation/list/last": {
+            "post": {
+                "description": "get last operation list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "operation"
+                ],
+                "summary": "last operation list",
+                "parameters": [
+                    {
+                        "description": "GetLastOperationListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastOperationListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetLastOperationListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/operation/list/next": {
+            "post": {
+                "description": "get next operation list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "operation"
+                ],
+                "summary": "next operation list",
+                "parameters": [
+                    {
+                        "description": "GetNextOperationListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextOperationListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetNextOperationListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/operation/list/range": {
+            "post": {
+                "description": "get range operation list page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "operation"
+                ],
+                "summary": "range operation list",
+                "parameters": [
+                    {
+                        "description": "GetRangeOperationListReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GetRangeOperationListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetRangeOperationListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/server/time/get": {
             "post": {
                 "description": "get server time",
@@ -739,6 +961,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/staking/delegate-fee": {
+            "post": {
+                "description": "check fee for delegate to staking transaction",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "delegate user staking fee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "DelegateUserStakingReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DelegateUserStakingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DelegateFeeUserStakingResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/user/staking/fee/get": {
             "post": {
                 "description": "get user staking fee",
@@ -906,6 +1172,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/staking/reward/claim-fee": {
+            "post": {
+                "description": "check fee for claim user reward",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "claim user staking reward fee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "ClaimUserStakingRewardReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimUserStakingRewardReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimFeeUserStakingRewardResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/user/staking/reward/get": {
             "post": {
                 "description": "get user reward value",
@@ -942,6 +1252,85 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.GetUserStakingRewardResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/reward/last-claimed": {
+            "post": {
+                "description": "get last claimed user reward after timestamp of claim trx",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get last claimed user staking reward",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "LastClaimedUserStakingRewardReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LastClaimedUserStakingRewardReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.LastClaimedUserStakingRewardResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/total-reward/get": {
+            "post": {
+                "description": "get user total reward value",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "get user total reward",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetUserStakingTotalRewardResp"
                         }
                     },
                     "400": {
@@ -1029,6 +1418,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/staking/undelegate-fee": {
+            "post": {
+                "description": "check fee for undelegate from staking transaction, the value may vary depending on the undelegate amount",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "undelegate user staking fee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "UndelegateUserStakingReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UndelegateUserStakingReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UndelegateFeeUserStakingResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/user/staking/undelegated/claim": {
             "post": {
                 "description": "claim user undelegated coins",
@@ -1065,6 +1498,50 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.ClaimUserStakingUndelegatedResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/user/staking/undelegated/claim-fee": {
+            "post": {
+                "description": "check fee for claim user undelegated coins",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staking"
+                ],
+                "summary": "claim user staking undelegated fee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "ClaimUserStakingUndelegatedReq params",
+                        "name": "JSON",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimUserStakingUndelegatedReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ClaimFeeUserStakingUndelegatedResp"
                         }
                     },
                     "400": {
@@ -1183,6 +1660,22 @@ const docTemplate = `{
                 }
             }
         },
+        "models.ClaimFeeUserStakingRewardResp": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ClaimFeeUserStakingUndelegatedResp": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
         "models.ClaimUserStakingRewardReq": {
             "type": "object",
             "properties": {
@@ -1270,6 +1763,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "transaction_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.DelegateFeeUserStakingResp": {
+            "type": "object",
+            "properties": {
+                "value": {
                     "type": "string"
                 }
             }
@@ -1639,6 +2140,59 @@ const docTemplate = `{
                 }
             }
         },
+        "models.GetLastOperationListByAddrReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                },
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetLastOperationListByAddrResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "operation_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.OperationListOperationInfo"
+                    }
+                }
+            }
+        },
+        "models.GetLastOperationListReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetLastOperationListResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "operation_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.OperationListOperationInfo"
+                    }
+                }
+            }
+        },
         "models.GetLastTransactionListByAddrReq": {
             "type": "object",
             "properties": {
@@ -1717,6 +2271,71 @@ const docTemplate = `{
                 }
             }
         },
+        "models.GetNextOperationListByAddrReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                },
+                "searchorder_after": {
+                    "type": "number"
+                },
+                "timestamp_after": {
+                    "type": "number"
+                },
+                "wallet_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetNextOperationListByAddrResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "operation_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.OperationListOperationInfo"
+                    }
+                }
+            }
+        },
+        "models.GetNextOperationListReq": {
+            "type": "object",
+            "properties": {
+                "page_size": {
+                    "type": "integer"
+                },
+                "searchorder_after": {
+                    "type": "number"
+                },
+                "timestamp_after": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.GetNextOperationListResp": {
+            "type": "object",
+            "properties": {
+                "next_searchorder_after": {
+                    "type": "number"
+                },
+                "next_timestamp_after": {
+                    "type": "number"
+                },
+                "operation_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.OperationListOperationInfo"
+                    }
+                }
+            }
+        },
         "models.GetNextTransactionListByAddrReq": {
             "type": "object",
             "properties": {
@@ -1782,6 +2401,89 @@ const docTemplate = `{
                 }
             }
         },
+        "models.GetOperationReq": {
+            "type": "object",
+            "properties": {
+                "operation_hash": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetOperationResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "fee": {
+                    "type": "string"
+                },
+                "function": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "operation": {
+                    "type": "string"
+                },
+                "receiver": {
+                    "type": "string"
+                },
+                "receiverShard": {
+                    "type": "integer"
+                },
+                "sender": {
+                    "type": "string"
+                },
+                "senderShard": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetRangeOperationListReq": {
+            "type": "object",
+            "properties": {
+                "page_from": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "timestamp_from": {
+                    "type": "integer"
+                },
+                "timestamp_to": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetRangeOperationListResp": {
+            "type": "object",
+            "properties": {
+                "operation_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.OperationListOperationInfo"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.GetRangeTransactionListReq": {
             "type": "object",
             "properties": {
@@ -1825,7 +2527,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "value": {
-                    "type": "integer"
+                    "type": "string"
                 }
             }
         },
@@ -1964,6 +2666,14 @@ const docTemplate = `{
                 }
             }
         },
+        "models.GetUserStakingTotalRewardResp": {
+            "type": "object",
+            "properties": {
+                "total_reward_value": {
+                    "type": "string"
+                }
+            }
+        },
         "models.GetUserStakingTotalStakeResp": {
             "type": "object",
             "properties": {
@@ -2004,6 +2714,72 @@ const docTemplate = `{
             "properties": {
                 "is_valid": {
                     "type": "boolean"
+                }
+            }
+        },
+        "models.LastClaimedUserStakingRewardReq": {
+            "type": "object",
+            "properties": {
+                "timestamp_after": {
+                    "type": "integer"
+                },
+                "user_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LastClaimedUserStakingRewardResp": {
+            "type": "object",
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.OperationListOperationInfo": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "fee": {
+                    "type": "string"
+                },
+                "function": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "operation": {
+                    "type": "string"
+                },
+                "receiver": {
+                    "type": "string"
+                },
+                "receiverShard": {
+                    "type": "integer"
+                },
+                "sender": {
+                    "type": "string"
+                },
+                "senderShard": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string"
                 }
             }
         },
@@ -2050,6 +2826,14 @@ const docTemplate = `{
                 "timestamp": {
                     "type": "integer"
                 },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UndelegateFeeUserStakingResp": {
+            "type": "object",
+            "properties": {
                 "value": {
                     "type": "string"
                 }

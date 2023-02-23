@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 	"yolllo-manager/internal/config"
 	"yolllo-manager/internal/repo/elasticsearch"
 	"yolllo-manager/internal/repo/postgresql"
@@ -54,5 +55,50 @@ func NewRepositoryManager(cfg *config.Config) (repo *RepositoryManager, err erro
 		return
 	}
 
+	go repo.PingPG(pgFullUrl)
+	go repo.PingES(esFullUrl, cfg)
+
 	return
+}
+
+func (repo *RepositoryManager) PingPG(connUrl string) {
+	for {
+		time.Sleep(3 * time.Second)
+
+		ctx := context.Background()
+
+		err := repo.PG.Conn.Ping(ctx)
+		if err != nil {
+			fmt.Println("PG RECCONECTION...")
+			conn, err := pgx.Connect(context.Background(), connUrl)
+			if err == nil {
+				repo.PG.Conn = conn
+				fmt.Println("PG RECONNECTED!")
+			}
+		}
+	}
+}
+
+func (repo *RepositoryManager) PingES(connUrl string, cfg *config.Config) {
+	for {
+		time.Sleep(3 * time.Second)
+
+		ctx := context.Background()
+
+		pingRequest := repo.ES.Conn.Ping.WithContext(ctx)
+		_, err := repo.ES.Conn.Ping(pingRequest)
+		if err != nil {
+			fmt.Println("ES RECCONECTION...")
+			conn, err := es.NewClient(es.Config{
+				Addresses: []string{
+					connUrl,
+				},
+				Username: cfg.Repo.ElasticSearch.User,
+				Password: cfg.ElasticSearchPassword,
+			})
+			if err == nil {
+				repo.ES.Conn = conn
+			}
+		}
+	}
 }

@@ -57,9 +57,10 @@ func (c *Core) DelegateUserStaking(req models.DelegateUserStakingReq) (resp mode
 	trxReq.Value = req.Value
 	trxReq.Receiver = c.Config.StakingAddress
 	trxReq.Sender = walletInfo.Data.Account.Address
-	trxReq.Data = "ZGVsZWdhdGU=" // "delegate"
+	dataStr := "delegate"
+	trxReq.Data = base64.StdEncoding.EncodeToString([]byte(dataStr))
 	trxReq.GasPrice = 1000000000
-	trxReq.GasLimit = 55099500
+	trxReq.GasLimit = int64(GAS_FOR_EXECUTION_DELEGATE + GAS_FOR_MOVEMENT + (GAS_PER_DATABYTE * len(dataStr)))
 	trxReq.ChainID = "yolllo-network"
 	trxReq.Version = 1
 	signData := `{"nonce":` + strconv.FormatInt(trxReq.Nonce, 10) +
@@ -228,7 +229,7 @@ func (c *Core) UndelegateUserStaking(req models.UndelegateUserStakingReq) (resp 
 
 	trxReq.Data = base64.StdEncoding.EncodeToString([]byte(dataStr))
 	trxReq.GasPrice = 1000000000
-	trxReq.GasLimit = 12000000
+	trxReq.GasLimit = int64(GAS_FOR_EXECUTION_DELEGATE + GAS_FOR_MOVEMENT + (GAS_PER_DATABYTE * len(dataStr)))
 	trxReq.ChainID = "yolllo-network"
 	trxReq.Version = 1
 	signData := `{"nonce":` + strconv.FormatInt(trxReq.Nonce, 10) +
@@ -386,7 +387,7 @@ func (c *Core) ClaimUserStakingUndelegated(req models.ClaimUserStakingUndelegate
 	dataStr := "withdraw"
 	trxReq.Data = base64.StdEncoding.EncodeToString([]byte(dataStr))
 	trxReq.GasPrice = 1000000000
-	trxReq.GasLimit = 12000000
+	trxReq.GasLimit = int64(GAS_FOR_EXECUTION_DELEGATE + GAS_FOR_MOVEMENT + (GAS_PER_DATABYTE * len(dataStr)))
 	trxReq.ChainID = "yolllo-network"
 	trxReq.Version = 1
 	signData := `{"nonce":` + strconv.FormatInt(trxReq.Nonce, 10) +
@@ -545,9 +546,11 @@ func (c *Core) ClaimUserStakingReward(req models.ClaimUserStakingRewardReq) (res
 	trxReq.Value = "0"
 	trxReq.Receiver = c.Config.StakingAddress
 	trxReq.Sender = walletInfo.Data.Account.Address
-	trxReq.Data = "Y2xhaW1SZXdhcmRz" // "claimRewards"
+
+	dataStr := "claimRewards"
+	trxReq.Data = base64.StdEncoding.EncodeToString([]byte(dataStr))
 	trxReq.GasPrice = 1000000000
-	trxReq.GasLimit = 6000000
+	trxReq.GasLimit = int64(GAS_FOR_EXECUTION_REWARD + GAS_FOR_MOVEMENT + (GAS_PER_DATABYTE * len(dataStr)))
 	trxReq.ChainID = "yolllo-network"
 	trxReq.Version = 1
 	signData := `{"nonce":` + strconv.FormatInt(trxReq.Nonce, 10) +
@@ -597,6 +600,26 @@ func (c *Core) ClaimUserStakingReward(req models.ClaimUserStakingRewardReq) (res
 	}
 
 	resp.TransactionHash = transactionInfo.Data.TxHash
+
+	return
+}
+
+func (c *Core) LastClaimedUserStakingReward(req models.LastClaimedUserStakingRewardReq) (resp models.LastClaimedUserStakingRewardResp, err error) {
+	operations, err := c.Repo.ES.GetLastClaimedRewardByAddr(req.UserAddress, req.TimestampAfter)
+	if err != nil {
+
+		return
+	}
+	if len(operations.Hits.Hits) == 0 {
+		err = errors.New("reward operations not found")
+
+		return
+	}
+	for _, operation := range operations.Hits.Hits {
+		resp.Value = operation.Source.Value
+		resp.Timestamp = operation.Source.Timestamp
+		return
+	}
 
 	return
 }
@@ -651,6 +674,36 @@ func (c *Core) GetUserStakingTotalStake() (resp models.GetUserStakingTotalStakeR
 	rewardBigInt.SetString(rewardHex, 16)
 
 	resp.TotalStakeValue = rewardBigInt.String()
+
+	return
+}
+
+func (c *Core) GetUserStakingTotalReward() (resp models.GetUserStakingTotalRewardResp, err error) {
+	resHTTP, err := http.Get("http://" + c.Config.ProxyAddress + "/address/" + c.Config.StakingAddress)
+	if err != nil {
+
+		return
+	}
+	defer resHTTP.Body.Close()
+	body, err := ioutil.ReadAll(resHTTP.Body)
+	if err != nil {
+
+		return
+	}
+	var addrBalanceResp models.GetAddressResp
+	err = json.Unmarshal(body, &addrBalanceResp)
+	if err != nil {
+
+		return
+	}
+
+	if addrBalanceResp.Error != "" {
+		err = errors.New(addrBalanceResp.Error)
+
+		return
+	}
+
+	resp.TotalRewardValue = addrBalanceResp.Data.Account.Balanace
 
 	return
 }
@@ -847,7 +900,7 @@ func (c *Core) GetStakingCurrentMonthlyReward() (resp models.GetStakingCurrentMo
 		return
 	}
 
-	monthIndex := getMonthIndex(483540)
+	monthIndex := getMonthIndex(shardInfo.Data.Status.Round)
 	denomination := big.NewInt(1000000000000000000)
 	var rewardPerMonthT int64
 	switch monthIndex {
@@ -973,7 +1026,8 @@ func (c *Core) GetStakingCurrentMonthlyReward() (resp models.GetStakingCurrentMo
 		rewardPerMonthT = 449058
 
 	}
-	resp.Value = big.NewInt(0).Mul(big.NewInt(rewardPerMonthT), denomination)
+	value := big.NewInt(0).Mul(big.NewInt(rewardPerMonthT), denomination)
+	resp.Value = value.String()
 
 	return
 }

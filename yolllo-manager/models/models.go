@@ -216,7 +216,8 @@ type ProxyAPITransactionCostReq struct {
 
 type ProxyAPITransactionCostResp struct {
 	Data struct {
-		TxGasUnits int64 `json:"txGasUnits"`
+		TxGasUnits    int64  `json:"txGasUnits"`
+		ReturnMessage string `json:"returnMessage"`
 	} `json:"data"`
 	Error string `json:"error"`
 	Code  string `json:"code"`
@@ -262,6 +263,10 @@ type DelegateUserStakingResp struct {
 	TransactionHash string `json:"transaction_hash"`
 }
 
+type DelegateFeeUserStakingResp struct {
+	Value string `json:"value"`
+}
+
 type GetUserStakingRewardReq struct {
 	UserAddress string `json:"user_address"`
 }
@@ -294,6 +299,10 @@ type ClaimUserStakingRewardResp struct {
 	TransactionHash string `json:"transaction_hash"`
 }
 
+type ClaimFeeUserStakingRewardResp struct {
+	Value string `json:"value"`
+}
+
 type ProxyAPIQueryGetTotalActiveStakeReq struct {
 	SCAddress string   `json:"scAddress"`
 	FuncName  string   `json:"funcName"`
@@ -312,6 +321,10 @@ type ProxyAPIQueryGetTotalActiveStakeResp struct {
 
 type GetUserStakingTotalStakeResp struct {
 	TotalStakeValue string `json:"total_stake_value"`
+}
+
+type GetUserStakingTotalRewardResp struct {
+	TotalRewardValue string `json:"total_reward_value"`
 }
 
 type ElasticAPIQueryGetLastBlocksResp struct {
@@ -439,7 +452,7 @@ type GetNextTransactionListByAddrResp struct {
 }
 
 type GetStakingCurrentMonthlyRewardResp struct {
-	Value *big.Int `json:"value" swaggertype:"integer"`
+	Value string `json:"value"`
 }
 
 type ElasticAPIQueryGetTransactionResp struct {
@@ -501,6 +514,10 @@ type UndelegateUserStakingResp struct {
 	TransactionHash string `json:"transaction_hash"`
 }
 
+type UndelegateFeeUserStakingResp struct {
+	Value string `json:"value"`
+}
+
 type GetUserStakingUndelegatedReq struct {
 	UserAddress string `json:"user_address"`
 }
@@ -525,6 +542,10 @@ type ClaimUserStakingUndelegatedReq struct {
 
 type ClaimUserStakingUndelegatedResp struct {
 	TransactionHash string `json:"transaction_hash"`
+}
+
+type ClaimFeeUserStakingUndelegatedResp struct {
+	Value string `json:"value"`
 }
 
 type GetUserStakingFeeResp struct {
@@ -560,4 +581,159 @@ type IsValidAddressReq struct {
 
 type IsValidAddressResp struct {
 	IsValid bool `json:"is_valid"`
+}
+
+type LastClaimedUserStakingRewardReq struct {
+	UserAddress    string `json:"user_address"`
+	TimestampAfter int64  `json:"timestamp_after"`
+}
+
+type LastClaimedUserStakingRewardResp struct {
+	Value     string `json:"value"`
+	Timestamp int64  `json:"timestamp"`
+}
+
+type GetLastOperationListReq struct {
+	PageSize int64 `json:"page_size"`
+}
+
+type GetLastOperationListResp struct {
+	NextTimestampAfter   float64                      `json:"next_timestamp_after"`
+	NextSearchOrderAfter float64                      `json:"next_searchorder_after"`
+	OperationList        []OperationListOperationInfo `json:"operation_list"`
+}
+
+type OperationListOperationInfo struct {
+	Hash          string `json:"hash"`
+	Nonce         int64  `json:"nonce"`
+	Receiver      string `json:"receiver"`
+	Sender        string `json:"sender"`
+	ReceiverShard int64  `json:"receiverShard"`
+	SenderShard   int64  `json:"senderShard"`
+	Value         string `json:"value"`
+	Timestamp     int64  `json:"timestamp"`
+	Status        string `json:"status"`
+	Operation     string `json:"operation"`
+	Fee           string `json:"fee"`
+	Data          string `json:"data"`
+	Function      string `json:"function"`
+}
+
+type ElasticAPIQueryGetLastOperationsResp struct {
+	Hits struct {
+		Hits []struct {
+			ID     string `json:"_id"`
+			Source struct {
+				Nonce         int64  `json:"nonce"`
+				Receiver      string `json:"receiver"`
+				Sender        string `json:"sender"`
+				ReceiverShard int64  `json:"receiverShard"`
+				SenderShard   int64  `json:"senderShard"`
+				Value         string `json:"value"`
+				Timestamp     int64  `json:"timestamp"`
+				SearchOrder   int64  `json:"searchOrder"`
+				Status        string `json:"status"`
+				Operation     string `json:"operation"`
+				Fee           string `json:"fee"`
+				Data          string `json:"data"`
+				Function      string `json:"function"`
+			} `json:"_source"`
+			Sort []float64 `json:"sort"`
+		} `json:"hits"`
+		Total struct {
+			Value int64 `json:"value"`
+		} `json:"total"`
+	} `json:"hits"`
+}
+
+type GetNextOperationListReq struct {
+	PageSize         int64   `json:"page_size"`
+	TimestampAfter   float64 `json:"timestamp_after"`
+	SearchOrderAfter float64 `json:"searchorder_after"`
+}
+
+type GetNextOperationListResp struct {
+	NextTimestampAfter   float64                      `json:"next_timestamp_after"`
+	NextSearchOrderAfter float64                      `json:"next_searchorder_after"`
+	OperationList        []OperationListOperationInfo `json:"operation_list"`
+}
+
+type GetRangeOperationListReq struct {
+	PageSize      int64 `json:"page_size"`
+	PageFrom      int64 `json:"page_from"`
+	TimestampFrom int64 `json:"timestamp_from"`
+	TimestampTo   int64 `json:"timestamp_to"`
+}
+
+type GetRangeOperationListResp struct {
+	Total         int64                        `json:"total"`
+	OperationList []OperationListOperationInfo `json:"operation_list"`
+}
+
+type GetLastOperationListByAddrReq struct {
+	PageSize      int64  `json:"page_size"`
+	WalletAddress string `json:"wallet_address"`
+}
+
+type GetLastOperationListByAddrResp struct {
+	NextTimestampAfter   float64                      `json:"next_timestamp_after"`
+	NextSearchOrderAfter float64                      `json:"next_searchorder_after"`
+	OperationList        []OperationListOperationInfo `json:"operation_list"`
+}
+
+type GetNextOperationListByAddrReq struct {
+	PageSize         int64   `json:"page_size"`
+	WalletAddress    string  `json:"wallet_address"`
+	TimestampAfter   float64 `json:"timestamp_after"`
+	SearchOrderAfter float64 `json:"searchorder_after"`
+}
+
+type GetNextOperationListByAddrResp struct {
+	NextTimestampAfter   float64                      `json:"next_timestamp_after"`
+	NextSearchOrderAfter float64                      `json:"next_searchorder_after"`
+	OperationList        []OperationListOperationInfo `json:"operation_list"`
+}
+
+type GetOperationReq struct {
+	OperationHash string `json:"operation_hash"`
+}
+
+type GetOperationResp struct {
+	Hash          string `json:"hash"`
+	Nonce         int64  `json:"nonce"`
+	Receiver      string `json:"receiver"`
+	Sender        string `json:"sender"`
+	ReceiverShard int64  `json:"receiverShard"`
+	SenderShard   int64  `json:"senderShard"`
+	Value         string `json:"value"`
+	Timestamp     int64  `json:"timestamp"`
+	Status        string `json:"status"`
+	Operation     string `json:"operation"`
+	Fee           string `json:"fee"`
+	Data          string `json:"data"`
+	Function      string `json:"function"`
+}
+
+type ElasticAPIQueryGetOperationResp struct {
+	Hits struct {
+		Hits []struct {
+			ID     string `json:"_id"`
+			Source struct {
+				Nonce         int64  `json:"nonce"`
+				Receiver      string `json:"receiver"`
+				Sender        string `json:"sender"`
+				ReceiverShard int64  `json:"receiverShard"`
+				SenderShard   int64  `json:"senderShard"`
+				Value         string `json:"value"`
+				Timestamp     int64  `json:"timestamp"`
+				SearchOrder   int64  `json:"searchOrder"`
+				Status        string `json:"status"`
+				Operation     string `json:"operation"`
+				Fee           string `json:"fee"`
+				Data          string `json:"data"`
+				Function      string `json:"function"`
+			} `json:"_source"`
+			Sort []float64 `json:"sort"`
+		} `json:"hits"`
+	} `json:"hits"`
 }

@@ -334,11 +334,11 @@ func (c *Core) GetLastTransactionListByAddr(req models.GetLastTransactionListByA
 }
 
 func (c *Core) GetNextTransactionListByAddr(req models.GetNextTransactionListByAddrReq) (resp models.GetNextTransactionListByAddrResp, err error) {
+	transactions, err := c.Repo.ES.GetNextTransactionsByAddr(req.PageSize, req.WalletAddress, req.TimestampAfter, req.SearchOrderAfter)
 	if err != nil {
 
 		return
 	}
-	transactions, err := c.Repo.ES.GetNextTransactionsByAddr(req.PageSize, req.WalletAddress, req.TimestampAfter, req.SearchOrderAfter)
 	for _, transaction := range transactions.Hits.Hits {
 		var transactionInfo models.TransactionListTransactionInfo
 		transactionInfo.Hash = transaction.ID
